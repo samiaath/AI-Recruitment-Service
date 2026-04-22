@@ -1,0 +1,22 @@
+# Configuration et secrets
+.env
+
+# Modèles IA et caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+env.bak/
+
+# Données personnelles et fichiers téléchargés (RGPD)
+CVs/
+emails/
+
+# Fichiers OS
+.DS_Store
+Thumbs.db
+.vscode/
