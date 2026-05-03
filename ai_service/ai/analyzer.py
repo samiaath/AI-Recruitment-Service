@@ -1,94 +1,165 @@
+import json
 import re
-import spacy
 from typing import Dict, Any
-from ..models import ExtractedApplicationData, Candidate, Skill
-from ..ingestion.read_db import fetch_session_by_reference
+from mistralai.async_client import MistralAsyncClient
+from mistralai.models.chat_completion import ChatMessage
+from ..models import ExtractedApplicationData, Candidate, Skill, Experience, ApplicationDegree
+from ..ingestion.read_db import fetch_session_by_reference, fetch_all_institutions, fetch_all_study_levels
+from ..config import settings
 
-try:
-    nlp = spacy.load("fr_core_news_sm")
-except Exception:
-    nlp = spacy.blank("fr")
+REF_RE = re.compile(r"\b(?:ref|reference)[:\s-]*([A-Za-z0-9_-]+)\b", re.IGNORECASE)
 
-KNOWN_SKILLS = ["python", "sql", "excel", "power bi", "docker", "kubernetes", "fastapi", "pandas", "spacy", "react", "angular", "java", "c#", ".net"]
-EMAIL_RE = re.compile(r"[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}")
-PHONE_RE = re.compile(r"(?:\+?\d{1,3}[\s-]*(?:\d[\s-]*){8,12}\d)")
-REF_RE = re.compile(r"(?:ref|reference)[:\s-]*([A-Za-z0-9_-]+)", re.IGNORECASE)
+# Initialisation Globale pour optimiser les appels répétitifs (singleton)
+MISTRAL_CLIENT_INSTANCE = None
+def get_mistral_client():
+    global MISTRAL_CLIENT_INSTANCE
+    if MISTRAL_CLIENT_INSTANCE is None:
+        MISTRAL_CLIENT_INSTANCE = MistralAsyncClient(api_key=settings.mistral_api_key)
+    return MISTRAL_CLIENT_INSTANCE
 
-# [MOTEUR NLP] Extrait Profil via SpaCy
-def analyze_candidate(clean_text: str, raw_text_for_ref: str, email_meta: dict = None) -> ExtractedApplicationData:
+async def analyze_candidate(clean_text: str, raw_text_for_ref: str, email_meta: dict = None) -> ExtractedApplicationData:
     if not email_meta: email_meta = {}
     
-    # 1. Regex sur Contact.
-    # Text Extraction
-    emails = EMAIL_RE.findall(clean_text)
-    phones = PHONE_RE.findall(clean_text)
-    
-    # 2. Analyse Token SpaCy.
-    doc = nlp(clean_text)
-    found_skills = set()
-    for token in doc:
-        if token.text in KNOWN_SKILLS:
-            found_skills.add(token.text)
-            
-    # Resolve Contact info
-    contact_email = email_meta.get("email") or (emails[0] if emails else email_meta.get("sender", "unknown@email.com"))
-    contact_phone = email_meta.get("phone") or (phones[0] if phones else None)
-    contact_name = email_meta.get("name") or "Candidat Anonyme"
-    
-    # 1. Build Candidate model
-    candidate = Candidate(
-        ApplicationEmail=contact_email,
-        ApplicationCandidateName=contact_name,
-        ApplicationCandidatePhone1=contact_phone,
-    )
-    
-    # 2. Build Skills models
-    skills_list = [Skill(SkillDescription=s) for s in found_skills]
-    
-    # 3. Session Position Resolution (Email vs DB)
+    # Session Position Resolution
     position_ref = email_meta.get("PositionReference")
     position_desc = email_meta.get("PositionDescription")
     
     if not position_ref:
-        # It's an Email input, extract via regex
         match = REF_RE.search(raw_text_for_ref)
         if match:
             extracted_ref = match.group(1).upper()
-            session_info = fetch_session_by_reference(extracted_ref)
-            position_ref = session_info["reference"]
-            position_desc = session_info["description"]
+            try:
+                session_info = await fetch_session_by_reference(extracted_ref)
+                position_ref = session_info["reference"]
+                position_desc = session_info["description"]
+            except Exception:
+                position_ref = extracted_ref
+                position_desc = "Description not found"
         else:
             position_ref = "DEFAULT_SESSION"
             position_desc = "Session par default (non trouvee dans le mail)"
+
+    institutions = await fetch_all_institutions()
+    study_levels = await fetch_all_study_levels()
+    inst_str = "\\n".join([f"ID: {i['InstitutionID']} - Label: {i['Name']}" for i in institutions])
+    sl_str = "\\n".join([f"ID: {sl['StudyLevelID']} - Label: {sl['Name']}" for sl in study_levels])
+
+    prompt = f"""
+Extrayez les informations du CV en un objet JSON très strict.
+
+REGLES CRITIQUES (LLMOps) :
+1. COMPETENCES (SKILLS): Vous DEVEZ scanner tout le CV. Si un candidat liste des technologies dans la description d'un stage ou d'un projet (comme "Développement en C# et .NET"), vous DEVEZ extraire "C#" et ".NET" et les ajouter dans le tableau "skills".
+2. EXPERIENCES: Récupérez TOUTES les expériences, dont les stages. Dans le champ "ExperienceDescription", listez les missions exactes ET SURTOUT les technos utilisées. Ne mettez jamais de chaines comme "Unknown", utilisez explicitement le type natif `null` (sans guillemets) si aucune valeur n'est trouvée.
+3. ANNEES D'EXPERIENCE: Calculez le total des années d'expérience (ex: 2.5), incluez les stages.
+
+MODELE DE SORTIE JSON ATTENDU :
+{{
+  "candidate": {{
+    "ApplicationEmail": "email ou null",
+    "ApplicationCandidateName": "nom ou null",
+    "ApplicationCandidatePhone1": "phone ou null",
+    "ApplicationCandidateAddress": "adresse ou null",
+    "ApplicationCandidateBirthDate": "YYYY-MM-DD ou null"
+  }},
+  "skills": ["C#", ".NET", "Python"],
+  "experiences": [
+    {{
+      "ExperienceStartDate": "YYYY-MM",
+      "ExperienceEndDate": "YYYY-MM",
+      "ExperienceCompany": "societe",
+      "ExperiencePosition": "titre du poste",
+      "ExperienceDescription": "Missions et technos"
+    }}
+  ],
+  "degrees": [
+    {{
+      "DegreeObtentionYear": "YYYY",
+      "Description": "titre",
+      "institution_id": 1,
+      "study_level_id": 1
+    }}
+  ],
+  "total_years_experience": 0.5
+}}
+Remarque : Mettez la primitive JSON `null` au lieu d'une valeur string lorsqu'un champ (comme institution_id ou ExperienceStartDate) n'est pas précisé dans le CV.
+
+Available Institutions:
+{inst_str}
+
+Available Study Levels:
+{sl_str}
+
+CV Text:
+{clean_text}
+"""
+
+    try:
+        client = get_mistral_client()
+        response = await client.chat(
+            model="mistral-small-latest",
+            messages=[ChatMessage(role="user", content=prompt)],
+            response_format={"type": "json_object"},
+            temperature=0.1
+        )
+        
+        extracted_json = json.loads(response.choices[0].message.content)
+        
+        def safe_val(val):
+            if isinstance(val, str) and val.strip().lower() in ("null", "none", "unknown", "inconnu", ""):
+                return None
+            return val
+        
+        candidate_data = extracted_json.get("candidate", {})
+        candidate = Candidate(
+            ApplicationEmail=safe_val(candidate_data.get("ApplicationEmail")) or email_meta.get("email") or "unknown@email.com",
+            ApplicationCandidateName=safe_val(candidate_data.get("ApplicationCandidateName")) or email_meta.get("name") or "Candidat Anonyme",
+            ApplicationCandidatePhone1=safe_val(candidate_data.get("ApplicationCandidatePhone1")),
+            ApplicationCandidateAddress=safe_val(candidate_data.get("ApplicationCandidateAddress")),
+            ApplicationCandidateBirthDate=safe_val(candidate_data.get("ApplicationCandidateBirthDate")),
+        )
+        
+        skills_list = [Skill(SkillDescription=s) for s in extracted_json.get("skills", [])]
+        
+        experiences_list = []
+        for exp in extracted_json.get("experiences", []):
+            experiences_list.append(Experience(
+                ExperienceStartDate=safe_val(exp.get("ExperienceStartDate")),
+                ExperienceEndDate=safe_val(exp.get("ExperienceEndDate")),
+                ExperienceCompany=safe_val(exp.get("ExperienceCompany")),
+                ExperiencePosition=safe_val(exp.get("ExperiencePosition")),
+                ExperienceDescription=safe_val(exp.get("ExperienceDescription"))
+            ))
             
+        degrees_list = []
+        for deg in extracted_json.get("degrees", []):
+            degrees_list.append(ApplicationDegree(
+                DegreeObtentionYear=safe_val(deg.get("DegreeObtentionYear")),
+                Description=safe_val(deg.get("Description")),
+                institution_id=safe_val(deg.get("institution_id")),
+                study_level_id=safe_val(deg.get("study_level_id"))
+            ))
+            
+        total_years = extracted_json.get("total_years_experience", 0.0)
+            
+    except Exception as e:
+        # Fallback in case Mistral API fails or returns invalid JSON
+        import traceback
+        print(f"Mistral extraction failed: {e}")
+        traceback.print_exc()
+        candidate = Candidate(
+            ApplicationEmail=email_meta.get("email") or "unknown@email.com",
+            ApplicationCandidateName=email_meta.get("name") or "Candidat Anonyme",
+        )
+        skills_list = []
+        experiences_list = []
+        degrees_list = []
 
-    # Extraire des dates basiques pour les experiences (ex: 2020-2022)
-    import re
-    years = re.findall(r'(20[0-2][0-9])', clean_text)
-    
-    extracted_exps = []
-    if len(years) >= 2:
-        extracted_exps.append({"ExperienceStartDate": years[0], "ExperienceEndDate": years[1], "ExperienceCompany": "Entreprise Extraite", "ExperiencePosition": "Employe"})
-    elif len(years) == 1:
-        extracted_exps.append({"ExperienceStartDate": years[0], "ExperienceEndDate": None, "ExperienceCompany": "Projet Extrait", "ExperiencePosition": "Stagiaire"})
-
-    extracted_deg = []
-    if "master" in clean_text.lower() or "ingenieur" in clean_text.lower():
-        extracted_deg.append({"DegreeObtentionYear": years[0] if years else "2023", "Description": "Master / Diplome d'Ingenieur"})
-    if "licence" in clean_text.lower() or "bachelor" in clean_text.lower():
-        extracted_deg.append({"DegreeObtentionYear": years[-1] if years else "2020", "Description": "Licence / Bachelor"})
-
-    from ..models import Experience, ApplicationDegree
-    experiences_list = [Experience(**e) for e in extracted_exps]
-    degrees_list = [ApplicationDegree(**d) for d in extracted_deg]
-
-    # Prepare the whole Pydantic Model
     extracted_data = ExtractedApplicationData(
         candidate=candidate,
         skills=skills_list,
         experiences=experiences_list,
         degrees=degrees_list,
-
+        total_years_experience=total_years if 'total_years' in locals() else 0.0,
         session_position_reference=position_ref,
         session_position_description=position_desc
     )

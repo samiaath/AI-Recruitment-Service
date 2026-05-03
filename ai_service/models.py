@@ -7,10 +7,11 @@ class Skill(BaseModel):
     SkillDescription: str
 
 class Experience(BaseModel):
-    ExperienceStartDate: str
+    ExperienceStartDate: Optional[str] = None
     ExperienceEndDate: Optional[str] = None
     ExperienceCompany: Optional[str] = None
     ExperiencePosition: Optional[str] = None
+    ExperienceDescription: Optional[str] = Field(default=None, exclude=True)
 
 
 # Associations and new DB models
@@ -29,6 +30,8 @@ class ApplicationDegree(BaseModel):
     DegreeObtentionYear: Optional[str] = None
     DegreeInstitution: Optional[Institution] = None
     DegreeStudyLevel: Optional[StudyLevel] = None
+    institution_id: Optional[int] = None
+    study_level_id: Optional[int] = None
     Description: Optional[str] = None
 
 class Candidate(BaseModel):
@@ -46,6 +49,7 @@ class ExtractedApplicationData(BaseModel):
     skills: List[Skill] = Field(default_factory=list)
     experiences: List[Experience] = Field(default_factory=list)
     degrees: List[ApplicationDegree] = Field(default_factory=list)
+    total_years_experience: Optional[float] = 0.0
     session_position_reference: Optional[str] = None
     session_position_description: Optional[str] = None
 

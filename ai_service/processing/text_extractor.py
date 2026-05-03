@@ -1,5 +1,5 @@
 import pdfplumber
-import pytesseract
+# import pytesseract
 from PIL import Image
 import docx
 
@@ -25,9 +25,11 @@ def extract_from_docx(filepath: str) -> str:
     return text
 
 def extract_from_image(filepath: str) -> str:
-    try:
-        image = Image.open(filepath).convert("RGB")
-        return pytesseract.image_to_string(image, lang="fra+eng")
-    except Exception as e:
-        print(f"Error image: {e}")
-        return ""
+    # Disabled for performance. Tesseract OCR is slow.
+    return ""
+#    try:
+#        image = Image.open(filepath).convert("RGB")
+#        return pytesseract.image_to_string(image, lang="fra+eng")
+#    except Exception as e:
+#        print(f"Error image: {e}")
+#        return ""

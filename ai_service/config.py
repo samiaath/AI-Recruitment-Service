@@ -22,6 +22,7 @@ class Settings(BaseModel):
     spacy_model: str = os.getenv("SPACY_MODEL", "fr_core_news_sm")
     ocr_lang: str = os.getenv("OCR_LANG", "fra")
     cv_directory: str = os.getenv("CV_DIRECTORY", "CVs")
+    mistral_api_key: str = os.getenv("MISTRAL_API_KEY", "")
 
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
 

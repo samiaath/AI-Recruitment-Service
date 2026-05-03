@@ -4,6 +4,7 @@ import imaplib
 import email
 from email.header import decode_header
 import time
+import asyncio
 from ai_service.config import settings
 
 def clean_text(text: str) -> str:
@@ -32,7 +33,7 @@ def get_folder_id(base_folder: str = "emails") -> str:
     next_id = max(existing_ids) + 1 if existing_ids else 5551
     return str(next_id)
 
-def fetch_new_emails(base_folder: str = "emails") -> int:
+def _sync_fetch_new_emails(base_folder: str = "emails") -> int:
     """
     Connecte l'application a une boite mail via IMAP.
     - Recherche les e-mails non lus (UNSEEN).
@@ -146,6 +147,9 @@ def fetch_new_emails(base_folder: str = "emails") -> int:
         print(f"Erreur IMAP: {e}")
         
     return downloaded
+
+async def fetch_new_emails(base_folder: str = "emails") -> int:
+    return await asyncio.to_thread(_sync_fetch_new_emails, base_folder)
 
 def ingest_from_local_folders(base_folder: str = "emails") -> list:
     """
