@@ -127,7 +127,20 @@ python -m pytest tests/test_smoke.py
 
 ---
 
-## 🔮 Évolution (Roadmap)
+## � CI/CD Pipeline (Intégration et Déploiement Continus)
+
+Un pipeline **GitHub Actions** (`.github/workflows/ci.yml`) est configuré pour garantir la robustesse du projet :
+- **Déclencheurs** : S'exécute automatiquement lors de `push` et `pull_request` sur les branches `main`/`master`.
+- **Environnement** : Serveurs Ubuntu.
+- **Étapes du Workflow** :
+  1. Clonage du code (`actions/checkout`).
+  2. Initialisation de l'environnement Python 3.11 avec cache pour `pip`.
+  3. Installation des dépendances via `requirements.txt`.
+  4. Exécution automatisée des **Tests Unitaires** (`pytest tests/`) couvrant les modules NLP (`cleaner.py`), les modèles de données Pydantic (`models.py`) et la validation de l'extraction (`text_extractor.py`).
+
+---
+
+## �🔮 Évolution (Roadmap)
 - Intégration accrue de modèles ouverts (Mistral/Llama) pour réduire les coûts d'API.
 - Suivi et Monitoring via des outils d'observabilité spécialisés pour IA de type LangSmith.
 - Augmentation de la complexité des cas de tests automatisés (Unit & Integration Testing).
