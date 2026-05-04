@@ -1,4 +1,4 @@
-﻿import os
+import os
 import asyncio
 from fastapi import FastAPI
 import uvicorn
@@ -12,9 +12,18 @@ from .ai.analyzer import analyze_candidate
 from .ai.scorer import compute_score
 from .database.updater import update_application_score
 
+_SEMAPHORE = None
+def get_semaphore():
+    global _SEMAPHORE
+    from .config import settings
+    if _SEMAPHORE is None:
+        _SEMAPHORE = asyncio.Semaphore(settings.pipeline_concurrency)
+    return _SEMAPHORE
+
 async def process_single_application(app_data):
-    # 1. Extraction de la Description Metier pour le Matching
-    source = app_data.get("source") # "db" (depuis DB) ou sinon "email"
+    async with get_semaphore():
+        # 1. Extraction de la Description Metier pour le Matching
+        source = app_data.get("source") # "db" (depuis DB) ou sinon "email"
     
     session_data = {}
     # A. Cas Base de Donnee : 'PositionDescription' a deja ete recuperee au depart.
@@ -94,6 +103,10 @@ async def process_single_application(app_data):
     full_result["ApplicationPreselectionScore"] = score
     full_result["ApplicationEvaluationExplanation"] = explanation
     
+    if isinstance(app_id, str) and app_id.startswith("Erreur SQL:"):
+        full_result["DATABASE_INSERTION_ERROR"] = app_id
+
+    
     return full_result
 
 async def run_pipeline_logic():
@@ -121,7 +134,7 @@ async def pipeline_cron():
             print(f"[CRON] Pipeline termine : {result['processed']} candidatures traitees avec succes.")
         except Exception as e:
             print(f"[CRON] Erreur tache de fond : {e}")
-        await asyncio.sleep(4 * 60 * 60)
+        await asyncio.sleep(int(settings.cron_interval_hours * 3600))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

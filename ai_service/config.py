@@ -4,6 +4,18 @@ import os
 
 load_dotenv()
 
+class ScoringWeights(BaseModel):
+    skills_match: float = 0.4
+    experience_years: float = 0.3
+    education_level: float = 0.2
+    seniority_match: float = 0.1
+
+    def validate_sum(self) -> bool:
+        return abs(self.skills_match + self.experience_years + self.education_level + self.seniority_match - 1.0) < 0.01
+
+    def weighted_score(self, skills, exp, edu, sen):
+        return (skills * self.skills_match) + (exp * self.experience_years) + (edu * self.education_level) + (sen * self.seniority_match)
+
 class Settings(BaseModel):
     db_host: str = os.getenv("DB_HOST", r"DESKTOP-K3I5MGD\SQLEXPRESS")
     db_name: str = os.getenv("DB_NAME", "IID2_IIDRUT")
@@ -25,5 +37,9 @@ class Settings(BaseModel):
     mistral_api_key: str = os.getenv("MISTRAL_API_KEY", "")
 
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
+    
+    scoring_weights: ScoringWeights = ScoringWeights()
+    pipeline_concurrency: int = int(os.getenv("PIPELINE_CONCURRENCY", "5"))
+    cron_interval_hours: float = float(os.getenv("CRON_INTERVAL_HOURS", "2.0"))
 
 settings = Settings()

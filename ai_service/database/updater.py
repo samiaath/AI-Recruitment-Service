@@ -1,218 +1,280 @@
 ﻿import asyncio
-from .db_connection import get_db_connection
+from datetime import datetime
+from ..database.db_connection import get_db_connection
+from ..models import ExtractedApplicationData
 
-def calculate_extraction_compliance(ai_data) -> float:
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Résolution Institution/StudyLevel avec insertion auto et récupération PK
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _resolve_or_create_institution(cursor, institution_id: int | None, institution_name: str | None, description: str | None) -> int | None:
     """
-    Calcule un taux de conformite d'extraction base sur la validite
-    des champs retournes et la presence de donnees cles.
+    Si institution_id fourni → vérifie existence, sinon insère, retourne PK
+    Si institution_id null → utilise institution_name si dispo, sinon extrait depuis Description, cherche/crée, retourne PK
     """
-    score = 0
-    total_points = 7
-    
-    # Verifier Candidat
-    if ai_data.candidate.ApplicationEmail and "@" in ai_data.candidate.ApplicationEmail and ai_data.candidate.ApplicationEmail != "unknown@email.com":
-        score += 1
-    if ai_data.candidate.ApplicationCandidateName and ai_data.candidate.ApplicationCandidateName != "Unknown" and ai_data.candidate.ApplicationCandidateName != "Candidat Anonyme":
-        score += 1
-    if ai_data.candidate.ApplicationCandidatePhone1:
-        score += 1
-    
-    # Verifier Profil
-    if len(ai_data.skills) > 0:
-        score += 1
-    if len(ai_data.experiences) > 0:
-        score += 1
-    if len(ai_data.degrees) > 0:
-        score += 1
-    
-    # Lien avec le metier/session explicit ou via NLP
-    if ai_data.session_position_reference and ai_data.session_position_reference != "DEFAULT_SESSION":
-        score += 1
-        
-    return round((score / total_points) * 100, 2)
-
-def _insert_associations(cursor, app_id: int, ai_data):
-    """
-    Insère de façon sécurisée et structurée les entités filles 
-    (Skills, Experiences, Degrees) associées à l'Application.
-    """
-    # -- 1. SKILLS
-    for skill in ai_data.skills:
-        if skill.SkillDescription:
-            desc = skill.SkillDescription[:100]  # Respect du VARCHAR(100)
-            cursor.execute("""
-                INSERT INTO Skill (SkillDescription, SkillApplicationID)
-                VALUES (?, ?)
-            """, (desc, app_id))
-
-    # -- 2. EXPERIENCES
-    for exp in ai_data.experiences:
-        if exp.ExperienceStartDate:
-            start = exp.ExperienceStartDate[:10]  # VARCHAR(10)
-            end = exp.ExperienceEndDate[:10] if exp.ExperienceEndDate else None
-            company = exp.ExperienceCompany[:50] if exp.ExperienceCompany else None
-            position = exp.ExperiencePosition[:50] if exp.ExperiencePosition else None
-            
-            cursor.execute("""
-                INSERT INTO Experience (
-                    ExperienceStartDate, ExperienceEndDate, 
-                    ExperienceCompany, ExperiencePosition, ExperienceApplicationID
-                ) VALUES (?, ?, ?, ?, ?)
-            """, (start, end, company, position, app_id))
-
-    # -- 3. DEGREES
-    for degree in ai_data.degrees:
-        yr = degree.DegreeObtentionYear[:4] if degree.DegreeObtentionYear else None
-        desc = degree.Description[:100] if degree.Description else None
-        inst_id = degree.institution_id
-        lvl_id = degree.study_level_id
-        
-        cursor.execute("""
-            INSERT INTO ApplicationDegree (
-                DegreeObtentionYear, DegreeApplicationID, 
-                DegreeInstitutionID, DegreeStudyLevelID, Description
-            ) VALUES (?, ?, ?, ?, ?)
-        """, (yr, app_id, inst_id, lvl_id, desc))
-
-def _sync_insert_new_candidate_and_application(ai_data, score: float, explanation: str, session_pos_id: int = None, cv_path: str = None):
-    """
-    Insere un candidat s'il n'existe pas, puis insere son Application
-    avec le score obtenu, le résumé de l'évaluation, et lie cette candidature a la SessionPosition dynamique.
-    Insere egalement la piece jointe (le CV) dans la table Attachment.
-    """
-    conn = get_db_connection()
-    if not conn:
-        print(f"Mock inserting DB for app {ai_data.candidate.ApplicationEmail}")
-        return None
-
-    try:
-        cursor = conn.cursor()
-
-        email = ai_data.candidate.ApplicationEmail[:50] if ai_data.candidate.ApplicationEmail else "unknown@email.com"
-        name = ai_data.candidate.ApplicationCandidateName[:50] if ai_data.candidate.ApplicationCandidateName else "Unknown"
-        birthdate = ai_data.candidate.ApplicationCandidateBirthDate[:15] if ai_data.candidate.ApplicationCandidateBirthDate else None
-        phone1 = ai_data.candidate.ApplicationCandidatePhone1[:20] if ai_data.candidate.ApplicationCandidatePhone1 else None
-        phone2 = ai_data.candidate.ApplicationCandidatePhone2[:20] if ai_data.candidate.ApplicationCandidatePhone2 else None
-        address = ai_data.candidate.ApplicationCandidateAddress[:50] if ai_data.candidate.ApplicationCandidateAddress else None
-
-        # 1. Verifier ou inserer Candidat
-        cursor.execute("SELECT CandidateID FROM Candidate WHERE ApplicationEmail = ?", (email,))
+    # Cas 1 : ID fourni par Mistral
+    if institution_id is not None:
+        cursor.execute("SELECT InstitutionID FROM Institution WHERE InstitutionID = ?", (institution_id,))
         row = cursor.fetchone()
         if row:
-            candidate_id = row[0]
-            print(f"[BDD] Candidat existant trouve (ID: {candidate_id})")      
-        else:
-            cursor.execute("""
-                INSERT INTO Candidate (ApplicationEmail, ApplicationCandidateName, ApplicationCandidateBirthDate, ApplicationCandidatePhone1, ApplicationCandidatePhone2, ApplicationCandidateAddress)
-                OUTPUT INSERTED.CandidateID
-                VALUES (?, ?, ?, ?, ?, ?)
-            """, (email, name, birthdate, phone1, phone2, address))
-            candidate_id = cursor.fetchone()[0]
-            print(f"[BDD] Nouveau Candidat cree (ID: {candidate_id})")        
+            return row[0]
+        print(f"[UPDATER] Institution ID {institution_id} introuvable en DB, fallback vers le nom...")
 
-        # 2. Utilisation du `session_pos_id` passe dynamiquement depuis le main.py 
-        # (Qui a lui meme fait la requete 'fetch_session_by_reference' exacte ou via DefaultSession)
-        if not session_pos_id and ai_data.session_position_reference and ai_data.session_position_reference != "DEFAULT_SESSION" and ai_data.session_position_reference != "FALLBACK":
-            cursor.execute("SELECT SessionPositionID FROM SessionPosition WHERE PositionReference = ?", (ai_data.session_position_reference,))
-            sp_row = cursor.fetchone()
-            if sp_row:
-                session_pos_id = sp_row[0]
-
-        # 3. Inserer la nouvelle Application
-        cursor.execute("""
-            INSERT INTO Application (
-                ApplicationReceiptDate,
-                ApplicationStatus,
-                ApplicationCandidateID,
-                ApplicationSessionPositionID,
-                ApplicationPreselectionScore,
-                ApplicationEvaluationExplanation,
-                status_ai
-            )
-            OUTPUT INSERTED.ApplicationID
-            VALUES (GETDATE(), 1, ?, ?, ?, ?, 'done')
-        """, (candidate_id, session_pos_id, score, explanation))
-
-        app_row = cursor.fetchone()
+    # Cas 2 : Pas d'ID → utilisation du nom fourni ou extraction depuis Description
+    inst_name = institution_name
+    if not inst_name and description and description.strip():
+        # Heuristique : cherche nom d'institution dans la description
+        import re
+        patterns = [
+            r"(?:à l'|à |de l'|de la |de |à la )([A-ZÀ-Ü][A-Za-zÀ-ÿ\s\-]+(?:Université|ENSI|ESPRIT|INSAT|Polytechnique|École|Institut|Lycée)[A-Za-zÀ-ÿ\s\-]*)",
+            r"([A-ZÀ-Ü][A-Z]{2,})",  # Acronymes type ENSI, MIT, ESPRIT
+        ]
         
-        if app_row:
-            app_id = app_row[0]
-            print(f"[BDD] Nouvelle Application inseree avec succes (ApplicationID: {app_id}) - Liee a la SessionPositionID {session_pos_id}")
-            
-            # Insert Attachment
-            if cv_path:
-                import os
-                import uuid
-                filename = os.path.basename(cv_path)[:100]
-                attachment_ref = str(uuid.uuid4())[:100]
-                
-                cursor.execute("""
-                    INSERT INTO Attachment (
-                        AttachmentTitle, AttachmentType, AttachmentReferenceGuid, AttachmentApplicationID
-                    ) VALUES (?, 'CV', ?, ?)
-                """, (filename, attachment_ref, app_id))
-                print(f"[BDD] Piece jointe '{filename}' liee avec succes a l'ApplicationID {app_id}")
-
-            # 5. Insert Associations (Skills, Experiences, Degrees)
-            _insert_associations(cursor, app_id, ai_data)
-            
-            comp_rate = calculate_extraction_compliance(ai_data)
-            print(f"[BDD] Extraction réussie et conforne à {comp_rate}% pour ApplicationID {app_id}")
-
-            conn.commit()
-            return app_id
-            
-        conn.commit()
+        for pattern in patterns:
+            match = re.search(pattern, description)
+            if match:
+                inst_name = match.group(1).strip()
+                break
+    
+    if not inst_name:
+        print(f"[UPDATER] Impossible d'extraire institution")
         return None
 
-    except Exception as e:
-        print(f"[Erreur] DB Insert failed: {e}")
-        conn.rollback()
-        return None
-    finally:
-        cursor.close()
-        conn.close()
+    # Recherche en DB (LIKE pour flexibilité)
+    cursor.execute(
+        "SELECT TOP 1 InstitutionID FROM Institution WHERE InstitutionLabel LIKE ?",
+        (f"%{inst_name}%",)
+    )
+    row = cursor.fetchone()
+    if row:
+        print(f"[UPDATER] Institution trouvée : {inst_name} → ID {row[0]}")
+        return row[0]
 
-def _sync_update_application_score(application_id, score: float, explanation: str, ai_data):
+    # Création nouvelle institution
+    acronym = "".join([c[0] for c in inst_name.split() if c[0].isupper()])[:10] or inst_name[:10]
+    cursor.execute(
+        "INSERT INTO Institution (InstitutionAcronym, InstitutionLabel, InstitutionRank, InstitutionStatus) OUTPUT INSERTED.InstitutionID VALUES (?, ?, 0, 1)",
+        (acronym, inst_name[:100])
+    )
+    new_id = int(cursor.fetchone()[0])
+    print(f"[UPDATER] Institution créée : {inst_name} → ID {new_id}")
+    return new_id
+
+
+def _resolve_or_create_study_level(cursor, study_level_id: int | None, study_level_name: str | None, description: str | None) -> int | None:
+    """
+    Si study_level_id fourni → vérifie existence, retourne PK
+    Si null → utilise study_level_name si fourni, sinon extrait depuis Description, cherche/crée, retourne PK
+    """
+    # Cas 1 : ID fourni
+    if study_level_id is not None:
+        cursor.execute("SELECT StudyLevelID FROM StudyLevel WHERE StudyLevelID = ?", (study_level_id,))
+        row = cursor.fetchone()
+        if row:
+            return row[0]
+        print(f"[UPDATER] StudyLevel ID {study_level_id} introuvable, fallback vers le nom...")
+
+    # Cas 2 : Utilisation du nom fourni ou Extraction depuis Description
+    level_name = study_level_name
+    level_rank = 0
+
+    if not level_name and description and description.strip():
+        import re
+        mapping = {
+            r"bac\+?2|bts|dut|licence 1|l1|deug": ("Bac+2", 1),
+            r"bac\+?3|licence|bachelor": ("Bac+3 (Licence)", 2),
+            r"bac\+?5|master|ingénieur|diplôme d'ingénieur": ("Bac+5 (Master/Ingénieur)", 3),
+            r"bac\+?8|doctorat|phd": ("Bac+8 (Doctorat)", 4),
+        }
+        
+        desc_lower = description.lower()
+        for pattern, (name, rank) in mapping.items():
+            if re.search(pattern, desc_lower):
+                level_name = name
+                level_rank = rank
+                break
+    
+    if not level_name:
+        print(f"[UPDATER] Niveau d'études non détecté")
+        return None
+
+    # Recherche en DB
+    cursor.execute(
+        "SELECT TOP 1 StudyLevelID FROM StudyLevel WHERE StudyLevelLabel LIKE ?",
+        (f"%{level_name}%",)
+    )
+    row = cursor.fetchone()
+    if row:
+        print(f"[UPDATER] StudyLevel trouvé : {level_name} → ID {row[0]}")
+        return row[0]
+
+    # Création
+    cursor.execute(
+        "INSERT INTO StudyLevel (StudyLevelLabel, StudyLevelScore, StudyLevelStatus) OUTPUT INSERTED.StudyLevelID VALUES (?, ?, 1)",
+        (level_name[:50], level_rank)
+    )
+    new_id = int(cursor.fetchone()[0])
+    print(f"[UPDATER] StudyLevel créé : {level_name} → ID {new_id}")
+    return new_id
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# UPDATE — Candidature existante
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _sync_update_application_score(
+    application_id: int,
+    score: float,
+    explanation: str,
+    ai_data: ExtractedApplicationData
+):
     conn = get_db_connection()
     if not conn:
-        print(f"Mock updating DB for app {application_id} to score {score}")    
+        print(f"[UPDATER] Connexion DB impossible")
         return
-
     try:
         cursor = conn.cursor()
-        query = """
-            UPDATE Application
-            SET
-                ApplicationPreselectionScore = ?,
-                ApplicationEvaluationExplanation = ?,
-                status_ai = 'done'
-            WHERE ApplicationID = ?
-        """
-        cursor.execute(query, (score, explanation, application_id))
-        
-        # Supprimer les anciennes associations pour eviter des doublons si on relance
+        cursor.execute(
+            "UPDATE Application SET ApplicationPreselectionScore = ?, status_ai = 'done', ApplicationEvaluationExplanation = ? WHERE ApplicationID = ?",
+            (round(score, 2), _trunc(explanation, 1000), application_id)
+        )
         cursor.execute("DELETE FROM Skill WHERE SkillApplicationID = ?", (application_id,))
         cursor.execute("DELETE FROM Experience WHERE ExperienceApplicationID = ?", (application_id,))
         cursor.execute("DELETE FROM ApplicationDegree WHERE DegreeApplicationID = ?", (application_id,))
-        
-        # Inserer les nouvelles associations
-        if ai_data:
-            _insert_associations(cursor, application_id, ai_data)
-            comp_rate = calculate_extraction_compliance(ai_data)
-            print(f"[BDD] Mise a jour reussie et extraction a {comp_rate}% pour ApplicationID {application_id}")
+
+        for skill in ai_data.skills:
+            if skill.SkillDescription and skill.SkillDescription.strip():
+                cursor.execute(
+                    "INSERT INTO Skill (SkillDescription, SkillApplicationID) VALUES (?, ?)",
+                    (skill.SkillDescription[:100], application_id)
+                )
+
+        for exp in ai_data.experiences:
+            cursor.execute(
+                "INSERT INTO Experience (ExperienceStartDate, ExperienceEndDate, ExperienceCompany, ExperiencePosition, ExperienceApplicationID) VALUES (?, ?, ?, ?, ?)",
+                (_trunc(exp.ExperienceStartDate, 10), _trunc(exp.ExperienceEndDate, 10), _trunc(exp.ExperienceCompany, 50), _trunc(exp.ExperiencePosition, 50), application_id)
+            )
+
+        for deg in ai_data.degrees:
+            inst_pk = _resolve_or_create_institution(cursor, deg.institution_id, deg.institution_name, deg.Description)
+            sl_pk   = _resolve_or_create_study_level(cursor, deg.study_level_id, deg.study_level_name, deg.Description)
+            
+            # MAJ Object Python Json
+            deg.institution_id = inst_pk
+            deg.study_level_id = sl_pk
+            
+            cursor.execute(
+                "INSERT INTO ApplicationDegree (DegreeObtentionYear, DegreeApplicationID, DegreeInstitutionID, DegreeStudyLevelID, Description) VALUES (?, ?, ?, ?, ?)",
+                (_trunc(deg.DegreeObtentionYear, 4), application_id, inst_pk, sl_pk, _trunc(deg.Description, 100))
+            )
 
         conn.commit()
-        print(f"Updated application {application_id} with score {score}")       
+        print(f"[UPDATER] ApplicationID={application_id} mis à jour")
     except Exception as e:
-        print(f"DB Update failed: {e}")
+        print(f"[UPDATER] Erreur UPDATE : {e}")
         conn.rollback()
     finally:
-        cursor.close()
         conn.close()
 
-async def insert_new_candidate_and_application(ai_data, score: float, explanation: str, session_pos_id: int = None, cv_path: str = None):
-    return await asyncio.to_thread(_sync_insert_new_candidate_and_application, ai_data, score, explanation, session_pos_id, cv_path)
 
-async def update_application_score(application_id, score: float, explanation: str, ai_data):
-    return await asyncio.to_thread(_sync_update_application_score, application_id, score, explanation, ai_data)
+async def update_application_score(application_id, score, explanation, ai_data):
+    await asyncio.to_thread(_sync_update_application_score, application_id, score, explanation, ai_data)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# INSERT — Nouveau candidat
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _sync_insert_new_candidate_and_application(ai_data, score, explanation, session_position_id, cv_path):
+    conn = get_db_connection()
+    if not conn:
+        return None
+    try:
+        cursor = conn.cursor()
+        c = ai_data.candidate
+        
+        # Vérifier si le candidat existe déjà (via Email ou Phone)
+        candidate_id = None
+        if c.ApplicationEmail:
+            cursor.execute("SELECT TOP 1 CandidateID FROM Candidate WHERE ApplicationEmail = ?", (c.ApplicationEmail,))
+            row = cursor.fetchone()
+            if row:
+                candidate_id = row[0]
+                
+        # Si introuvable par email, on teste avec le téléphone
+        if candidate_id is None and c.ApplicationCandidatePhone1:
+            cursor.execute("SELECT TOP 1 CandidateID FROM Candidate WHERE ApplicationCandidatePhone1 = ?", (c.ApplicationCandidatePhone1,))
+            row = cursor.fetchone()
+            if row:
+                candidate_id = row[0]
+                
+        # S'il n'existe pas, on le crée
+        if candidate_id is None:
+            cursor.execute(
+                "INSERT INTO Candidate (ApplicationEmail, ApplicationCandidateName, ApplicationCandidateBirthDate, ApplicationCandidatePhone1, ApplicationCandidatePhone2, ApplicationCandidateAddress) OUTPUT INSERTED.CandidateID VALUES (?, ?, ?, ?, ?, ?)",
+                (_trunc(c.ApplicationEmail, 50), _trunc(c.ApplicationCandidateName, 50), _trunc(c.ApplicationCandidateBirthDate, 15), _trunc(c.ApplicationCandidatePhone1, 20), _trunc(c.ApplicationCandidatePhone2, 20), _trunc(c.ApplicationCandidateAddress, 50))
+            )
+            candidate_id = int(cursor.fetchone()[0])
+            print(f"[UPDATER] Nouveau candidat inséré : CandidateID={candidate_id}")
+        else:
+            print(f"[UPDATER] Candidat existant trouvé : CandidateID={candidate_id}")
+
+        cursor.execute(
+            "INSERT INTO Application (ApplicationReceiptDate, ApplicationStatus, ApplicationPreselectionScore, ApplicationEvaluationExplanation, ApplicationCandidateID, ApplicationSessionPositionID, status_ai) OUTPUT INSERTED.ApplicationID VALUES (?, 1, ?, ?, ?, ?, 'done')",
+            (datetime.now(), round(score, 2), _trunc(explanation, 1000), candidate_id, session_position_id)
+        )
+        application_id = int(cursor.fetchone()[0])
+
+        if cv_path:
+            import os, uuid
+            cursor.execute(
+                "INSERT INTO Attachment (AttachmentTitle, AttachmentType, AttachmentReferenceGuid, AttachmentApplicationID) VALUES (?, 'CV', ?, ?)",
+                (_trunc(os.path.basename(cv_path), 100), str(uuid.uuid4()), application_id)
+            )
+
+        for skill in ai_data.skills:
+            if skill.SkillDescription and skill.SkillDescription.strip():
+                cursor.execute(
+                    "INSERT INTO Skill (SkillDescription, SkillApplicationID) VALUES (?, ?)",
+                    (_trunc(skill.SkillDescription, 100), application_id)
+                )
+
+        for exp in ai_data.experiences:
+            cursor.execute(
+                "INSERT INTO Experience (ExperienceStartDate, ExperienceEndDate, ExperienceCompany, ExperiencePosition, ExperienceApplicationID) VALUES (?, ?, ?, ?, ?)",
+                (_trunc(exp.ExperienceStartDate, 10), _trunc(exp.ExperienceEndDate, 10), _trunc(exp.ExperienceCompany, 50), _trunc(exp.ExperiencePosition, 50), application_id)
+            )
+
+        for deg in ai_data.degrees:
+            inst_pk = _resolve_or_create_institution(cursor, deg.institution_id, deg.institution_name, deg.Description)
+            sl_pk   = _resolve_or_create_study_level(cursor, deg.study_level_id, deg.study_level_name, deg.Description)
+            
+            # MAJ Object Python Json
+            deg.institution_id = inst_pk
+            deg.study_level_id = sl_pk
+            
+            cursor.execute(
+                "INSERT INTO ApplicationDegree (DegreeObtentionYear, DegreeApplicationID, DegreeInstitutionID, DegreeStudyLevelID, Description) VALUES (?, ?, ?, ?, ?)",
+                (_trunc(deg.DegreeObtentionYear, 4), application_id, inst_pk, sl_pk, _trunc(deg.Description, 100))
+            )
+
+        conn.commit()
+        print(f"[UPDATER] Nouveau candidat : ApplicationID={application_id}")
+        return application_id
+    except Exception as e:
+        print(f"[UPDATER] Erreur INSERT : {e}")
+        conn.rollback()
+        return f"Erreur SQL: {str(e)}"
+    finally:
+        conn.close()
+
+
+async def insert_new_candidate_and_application(ai_data, score, explanation, session_position_id, cv_path):
+    return await asyncio.to_thread(_sync_insert_new_candidate_and_application, ai_data, score, explanation, session_position_id, cv_path)
+
+
+def _trunc(value, max_len):
+    if value is None:
+        return None
+    return str(value)[:max_len]

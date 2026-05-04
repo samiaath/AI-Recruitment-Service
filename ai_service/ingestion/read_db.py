@@ -26,14 +26,13 @@ def _sync_fetch_pending_applications() -> list:
                 a.ApplicationID,
                 sp.PositionReference,
                 sp.Description as PositionDescription,
-                att.AttachmentTitle,
+                (SELECT TOP 1 AttachmentTitle FROM Attachment WHERE AttachmentApplicationID = a.ApplicationID AND AttachmentType = 'CV') as AttachmentTitle,
                 c.ApplicationEmail,
                 c.ApplicationCandidateName,
                 c.ApplicationCandidatePhone1,
                 sp.SessionPositionID
             FROM Application a
             LEFT JOIN SessionPosition sp ON a.ApplicationSessionPositionID = sp.SessionPositionID
-            LEFT JOIN Attachment att ON a.ApplicationID = att.AttachmentApplicationID AND att.AttachmentType = 'CV'
             LEFT JOIN Candidate c ON a.ApplicationCandidateID = c.CandidateID   
             WHERE a.status_ai = 'pending'
         """
