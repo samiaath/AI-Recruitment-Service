@@ -24,7 +24,7 @@ Notre processus d'implémentation de la donnée a suivi rigoureusement le cycle 
 1. **Business Understanding (Compréhension Métier)** : Automatiser le traitement des candidatures et le matching (scoring) avec les offres d'emploi (Job Sessions) afin de réduire la charge mentale et temporelle des recruteurs.
 2. **Data Understanding (Compréhension des Données)** : Analyse de données hétérogènes (CV en PDF/Word, corps d'e-mails, attributs SQL structurés).
 3. **Data Preparation (Préparation des Données)** : Nettoyage du texte (`cleaner.py`), extraction OCR (`easyocr`, `pytesseract`), parsing de documents (`pdfplumber`, `python-docx`).
-4. **Modeling (Modélisation)** : Extraction d'entités avec SpaCy et calcul d'affinité dynamique à l'aide de l'intégration de grands modèles de langage et d'analyseurs sémantiques.
+4. **Modeling (Modélisation)** : Extraction structurée et parsing des CV avec Mistral (mistral-small-latest) en JSON strict avec affinité dynamique.
 5. **Evaluation (Évaluation)** : Système de scoring (0-100) avec explication justifiant la note du candidat.
 6. **Deployment (Déploiement)** : API FastAPI avec un orchestrateur autonome (Background Cron Job) s'exécutant toutes les 4 heures.
 
@@ -48,7 +48,7 @@ Notre processus d'implémentation de la donnée a suivi rigoureusement le cycle 
 - 🧠 **Moteur NLP & IA** :
   - Routing des fichiers joints selon le format (PDF, DOCX, Image).
   - Nettoyage textuel par module `processing/`.
-  - Entités (Skills, Experiences) isolées via SpaCy et LLM.
+  - Entités (Skills, Experiences) isolées via Mistral Small et Prompts Stricts.
 - 💾 **Insertion / Mise à jour Intelligente** :
   - Calcul du score d'adéquation (`ApplicationPreselectionScore`).
   - Sauvegarde structurée de l'évaluation et des entités en DB et mise au statut `Done`.
@@ -67,7 +67,7 @@ graph TD
     end
 
     subgraph "3. Traitement et Moteur IA"
-        NLP[SpaCy / Traitement du Langage]
+        NLP[API Mistral / Traitement du Langage]
         Extract[Extraction d'Entites Structurees]
         Scorer[Calcul Score Matching]
     end
@@ -97,8 +97,7 @@ python -m venv .venv
 # 3. Installer les dépendances
 pip install -r requirements.txt
 
-# 4. Télécharger le modèle de langue (SpaCy)
-python -m spacy download fr_core_news_sm
+
 ```
 
 ### 2. Lancement du Serveur
@@ -141,6 +140,6 @@ Un pipeline **GitHub Actions** (`.github/workflows/ci.yml`) est configuré pour 
 ---
 
 ## �🔮 Évolution (Roadmap)
-- Intégration accrue de modèles ouverts (Mistral/Llama) pour réduire les coûts d'API.
+- Optimisation continue des prompts pour Mistral (Déjà implémenté).
 - Suivi et Monitoring via des outils d'observabilité spécialisés pour IA de type LangSmith.
 - Augmentation de la complexité des cas de tests automatisés (Unit & Integration Testing).
