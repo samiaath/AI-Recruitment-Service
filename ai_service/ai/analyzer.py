@@ -135,6 +135,20 @@ CV :
 """
 
 
+def sanitize_for_llm(text: str, max_tokens: int = 4000) -> str:
+    """Truncate and strip prompt injection patterns"""
+    if not text: return ""
+    important_patterns = [
+        r"ignore\s+all\s+previous",
+        r"system\s*:\s*you\s+are",
+        r"</instructions>",
+        r"assistant\s*:\s*",
+    ]
+    for pattern in important_patterns:
+        text = re.sub(pattern, "[FILTERED]", text, flags=re.IGNORECASE)
+    
+    return text[:max_tokens * 4]
+
 async def analyze_candidate(
     clean_text: str,
     raw_text_for_ref: str,
@@ -169,7 +183,9 @@ async def analyze_candidate(
     inst_str = "\n".join([f"  ID: {i['InstitutionID']} → {i['Name']}" for i in institutions])
     sl_str   = "\n".join([f"  ID: {s['StudyLevelID']} → {s['Name']}" for s in study_levels])
 
-    prompt = _PROMPT.format(inst_str=inst_str, sl_str=sl_str, cv_text=clean_text, job_description=position_desc)
+    cv_text_safe = sanitize_for_llm(clean_text)
+
+    prompt = _PROMPT.format(inst_str=inst_str, sl_str=sl_str, cv_text=cv_text_safe, job_description=position_desc)
     try:
         client   = get_mistral_client()
         response = await client.chat(
