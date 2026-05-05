@@ -112,9 +112,17 @@ async def compute_score(ai_extracted: Any, description_poste: str) -> Dict[str, 
         s_sen = float(eval_json.get("seniority_match", 50))
         conf = float(eval_json.get("confidence", 1.0))
         
-        strengths = eval_json.get("strengths", "").strip()
-        weaknesses = eval_json.get("weaknesses", "").strip()
-        summary_raw = eval_json.get("summary", "").strip()
+        strengths_raw = eval_json.get("strengths", "")
+        weaknesses_raw = eval_json.get("weaknesses", "")
+        summary_raw = eval_json.get("summary", "")
+        
+        if isinstance(strengths_raw, list): strengths_raw = " ".join(str(x) for x in strengths_raw)
+        if isinstance(weaknesses_raw, list): weaknesses_raw = " ".join(str(x) for x in weaknesses_raw)
+        if isinstance(summary_raw, list): summary_raw = " ".join(str(x) for x in summary_raw)
+        
+        strengths = str(strengths_raw).strip()
+        weaknesses = str(weaknesses_raw).strip()
+        summary_raw = str(summary_raw).strip()
        
         
         # FALLBACK INTELLIGENT

@@ -1,5 +1,6 @@
 import os
 import asyncio
+from docx import settings
 from fastapi import FastAPI
 import uvicorn
 from contextlib import asynccontextmanager
@@ -138,7 +139,7 @@ async def run_pipeline_logic():
     return {"status": "success", "processed": len(results), "details": results}
 
 async def pipeline_cron():
-    print("[CRON] Pause initiale de 5 minutes pour vous laisser le temps de tester manuellement via Swagger UI (/docs).")
+    print("[CRON] Pause initiale de 5 minutes pour tester manuellement via Swagger UI (/docs).")
     await asyncio.sleep(300) # Attente de 5 minutes au démarrage
     while True:
         try:

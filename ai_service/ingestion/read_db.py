@@ -23,7 +23,7 @@ def _sync_fetch_pending_applications() -> list:
                     a.ApplicationID,
                     sp.PositionReference,
                     sp.Description as PositionDescription,
-                    (SELECT TOP 1 AttachmentTitle FROM Attachment WHERE AttachmentApplicationID = a.ApplicationID AND AttachmentType = 'CV') as AttachmentTitle,
+                    (SELECT TOP 1 AttachmentTitle FROM Attachment WHERE AttachmentApplicationID = a.ApplicationID ) as AttachmentTitle,
                     c.ApplicationEmail,
                     c.ApplicationCandidateName,
                     c.ApplicationCandidatePhone1,

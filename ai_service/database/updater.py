@@ -132,6 +132,42 @@ def _sync_update_application_score(
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
+            
+            # --- Mise à jour du Candidat si champs manquants (Phone, Address, etc.) ---
+            cursor.execute("SELECT ApplicationCandidateID FROM Application WHERE ApplicationID = ?", (application_id,))
+            cand_row = cursor.fetchone()
+            if cand_row and cand_row[0]:
+                candidate_id = cand_row[0]
+                c = ai_data.candidate
+                cursor.execute("SELECT ApplicationCandidateName, ApplicationCandidateBirthDate, ApplicationCandidatePhone1, ApplicationCandidatePhone2, ApplicationCandidateAddress FROM Candidate WHERE CandidateID = ?", (candidate_id,))
+                existing_candidate = cursor.fetchone()
+                
+                update_fields = []
+                update_values = []
+                
+                if c.ApplicationCandidateName and (not existing_candidate or not existing_candidate[0]):
+                    update_fields.append("ApplicationCandidateName = ?")
+                    update_values.append(_trunc(c.ApplicationCandidateName, 50))
+                if c.ApplicationCandidateBirthDate and (not existing_candidate or not existing_candidate[1]):
+                    update_fields.append("ApplicationCandidateBirthDate = ?")
+                    update_values.append(_trunc(c.ApplicationCandidateBirthDate, 15))
+                if c.ApplicationCandidatePhone1 and (not existing_candidate or not existing_candidate[2]):
+                    update_fields.append("ApplicationCandidatePhone1 = ?")
+                    update_values.append(_trunc(c.ApplicationCandidatePhone1, 20))
+                if c.ApplicationCandidatePhone2 and (not existing_candidate or not existing_candidate[3]):
+                    update_fields.append("ApplicationCandidatePhone2 = ?")
+                    update_values.append(_trunc(c.ApplicationCandidatePhone2, 20))
+                if c.ApplicationCandidateAddress and (not existing_candidate or not existing_candidate[4]):
+                    update_fields.append("ApplicationCandidateAddress = ?")
+                    update_values.append(_trunc(c.ApplicationCandidateAddress, 50))
+                    
+                if update_fields:
+                    update_query = f"UPDATE Candidate SET {', '.join(update_fields)} WHERE CandidateID = ?"
+                    update_values.append(candidate_id)
+                    cursor.execute(update_query, tuple(update_values))
+                    print(f"[UPDATER] Candidat mis à jour (via UPDATE application) : CandidateID={candidate_id}")
+            # --------------------------------------------------------------------------
+
             cursor.execute(
                 "UPDATE Application SET ApplicationPreselectionScore = ?, status_ai = 'done', ApplicationEvaluationExplanation = ? WHERE ApplicationID = ?",
                 (round(score, 2), _trunc(explanation, 1000), application_id)
@@ -209,7 +245,37 @@ def _sync_insert_new_candidate_and_application(ai_data, score, explanation, sess
                 candidate_id = int(cursor.fetchone()[0])
                 print(f"[UPDATER] Nouveau candidat inséré : CandidateID={candidate_id}")
             else:
-                print(f"[UPDATER] Candidat existant trouvé : CandidateID={candidate_id}")
+                # Update existing candidate with any missing information
+                print(f"[UPDATER] Candidat existant trouvé : CandidateID={candidate_id}, mise à jour des infos...")
+                
+                # Fetch existing candidate to only update NULL fields
+                cursor.execute("SELECT ApplicationCandidateName, ApplicationCandidateBirthDate, ApplicationCandidatePhone1, ApplicationCandidatePhone2, ApplicationCandidateAddress FROM Candidate WHERE CandidateID = ?", (candidate_id,))
+                existing_candidate = cursor.fetchone()
+                
+                update_fields = []
+                update_values = []
+                
+                # Update fields if new data isn't null and existing data is either missing or we just overwrite it
+                if c.ApplicationCandidateName and (not existing_candidate or not existing_candidate[0]):
+                    update_fields.append("ApplicationCandidateName = ?")
+                    update_values.append(_trunc(c.ApplicationCandidateName, 50))
+                if c.ApplicationCandidateBirthDate and (not existing_candidate or not existing_candidate[1]):
+                    update_fields.append("ApplicationCandidateBirthDate = ?")
+                    update_values.append(_trunc(c.ApplicationCandidateBirthDate, 15))
+                if c.ApplicationCandidatePhone1 and (not existing_candidate or not existing_candidate[2]):
+                    update_fields.append("ApplicationCandidatePhone1 = ?")
+                    update_values.append(_trunc(c.ApplicationCandidatePhone1, 20))
+                if c.ApplicationCandidatePhone2 and (not existing_candidate or not existing_candidate[3]):
+                    update_fields.append("ApplicationCandidatePhone2 = ?")
+                    update_values.append(_trunc(c.ApplicationCandidatePhone2, 20))
+                if c.ApplicationCandidateAddress and (not existing_candidate or not existing_candidate[4]):
+                    update_fields.append("ApplicationCandidateAddress = ?")
+                    update_values.append(_trunc(c.ApplicationCandidateAddress, 50))
+                    
+                if update_fields:
+                    update_query = f"UPDATE Candidate SET {', '.join(update_fields)} WHERE CandidateID = ?"
+                    update_values.append(candidate_id)
+                    cursor.execute(update_query, tuple(update_values))
 
             cursor.execute(
                 "INSERT INTO Application (ApplicationReceiptDate, ApplicationStatus, ApplicationPreselectionScore, ApplicationEvaluationExplanation, ApplicationCandidateID, ApplicationSessionPositionID, status_ai) OUTPUT INSERTED.ApplicationID VALUES (?, 1, ?, ?, ?, ?, 'done')",
