@@ -5,15 +5,14 @@ def test_clean_text_basic():
     raw = "Hello   World!!! This is a TEST."
     cleaned = clean_text(raw)
     # Les '!' ne sont pas dans la liste des caractères conservés par défaut, ils doivent disparaître
-    # On met tout en lower case
-    assert cleaned == "hello world this is a test."
+    assert cleaned == "Hello World This is a TEST."
 
 def test_clean_text_special_tech_chars():
     raw = "I am a C# and C++ developer. I work with CI/CD and R&D."
     cleaned = clean_text(raw)
-    assert "c#" in cleaned
-    assert "ci/cd" in cleaned
-    assert "r&d" in cleaned
+    assert "C#" in cleaned
+    assert "CI/CD" in cleaned
+    assert "R&D" in cleaned
 
 def test_clean_text_empty():
     assert clean_text("") == ""

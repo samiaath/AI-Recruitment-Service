@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -11,25 +11,40 @@ on:
       - master
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: ${{ matrix.python-version }}
         cache: 'pip'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install ruff pytest pytest-cov pytest-asyncio httpx
         pip install -r requirements.txt
 
-    - name: Run Tests
+    - name: Lint with Ruff
       run: |
-        pip install pytest httpx
-        python -m pytest tests/
+        ruff check .
+      continue-on-error: true
+
+    - name: Run Tests with Coverage
+      run: |
+        python -m pytest tests/ --cov=ai_service --cov-report=xml --cov-report=term
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
