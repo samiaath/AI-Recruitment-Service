@@ -69,9 +69,9 @@ def _resolve_or_create_institution(cursor, institution_id, institution_name, des
     cursor.execute(
         """
         INSERT INTO Institution
-        (InstitutionAcronym, InstitutionLabel, InstitutionRank, InstitutionStatus)
+        (InstitutionAcronym, InstitutionLabel, InstitutionRank, InstitutionStatus, status_ai)
         OUTPUT INSERTED.InstitutionID
-        VALUES (?, ?, 0, 0)
+        VALUES (?, ?, 0, 0, 1)
         """,
         (acronym, inst_name[:100])
     )
@@ -122,9 +122,9 @@ def _resolve_or_create_study_level(cursor, study_level_id, study_level_name, des
     cursor.execute(
         """
         INSERT INTO StudyLevel
-        (StudyLevelLabel, StudyLevelRank, StudyLevelStatus)
+        (StudyLevelLabel, StudyLevelRank, StudyLevelStatus, status_ai)
         OUTPUT INSERTED.StudyLevelID
-        VALUES (?, ?, 0)
+        VALUES (?, ?, 0, 1)
         """,
         (level_name[:50], rank)
     )
@@ -227,13 +227,13 @@ def _sync_update_application_score(application_id, score, explanation, ai_data):
 
             # Degrees
             for d in ai_data.degrees:
-                inst = _resolve_or_create_institution(cursor, d.institution_id, d.institution_name, d.Description)
-                lvl = _resolve_or_create_study_level(cursor, d.study_level_id, d.study_level_name, d.Description)
+                inst = _resolve_or_create_institution(cursor, d.institution_id, d.institution_name, d.DegreeLabel)
+                lvl = _resolve_or_create_study_level(cursor, d.study_level_id, d.study_level_name, d.DegreeLabel)
 
                 cursor.execute(
                     """
                     INSERT INTO ApplicationDegree
-                    (DegreeObtentionYear, DegreeApplicationID, DegreeInstitutionID, DegreeStudyLevelID, Description)
+                    (DegreeObtentionYear, DegreeApplicationID, DegreeInstitutionID, DegreeStudyLevelID, DegreeLabel)
                     VALUES (?, ?, ?, ?, ?)
                     """,
                     (
@@ -241,7 +241,7 @@ def _sync_update_application_score(application_id, score, explanation, ai_data):
                         application_id,
                         inst,
                         lvl,
-                        _trunc(d.Description, 100)
+                        _safe_required(d.DegreeLabel, "Titre non précisé")[:100]
                     )
                 )
 
@@ -344,22 +344,27 @@ def _sync_insert_new_candidate_and_application(ai_data, score, explanation, sess
                     )
 
             for exp in ai_data.experiences:
+                start_date = _trunc(exp.ExperienceStartDate, 10)
+                if not start_date:
+                    print(f"[UPDATER] Skipping experience at {exp.ExperienceCompany or 'Unknown'} due to missing StartDate")
+                    continue
+                    
                 cursor.execute(
                     "INSERT INTO Experience (ExperienceStartDate, ExperienceEndDate, ExperienceCompany, ExperiencePosition, ExperienceApplicationID) VALUES (?, ?, ?, ?, ?)",
-                    (_trunc(exp.ExperienceStartDate, 10), _trunc(exp.ExperienceEndDate, 10), _trunc(exp.ExperienceCompany, 50), _trunc(exp.ExperiencePosition, 50), application_id)
+                    (start_date, _trunc(exp.ExperienceEndDate, 10), _trunc(exp.ExperienceCompany, 50), _trunc(exp.ExperiencePosition, 50), application_id)
                 )
 
             for deg in ai_data.degrees:
-                inst_pk = _resolve_or_create_institution(cursor, deg.institution_id, deg.institution_name, deg.Description)
-                sl_pk   = _resolve_or_create_study_level(cursor, deg.study_level_id, deg.study_level_name, deg.Description)
+                inst_pk = _resolve_or_create_institution(cursor, deg.institution_id, deg.institution_name, deg.DegreeLabel)
+                sl_pk   = _resolve_or_create_study_level(cursor, deg.study_level_id, deg.study_level_name, deg.DegreeLabel)
                 
                 # MAJ Object Python Json
                 deg.institution_id = inst_pk
                 deg.study_level_id = sl_pk
                 
                 cursor.execute(
-                    "INSERT INTO ApplicationDegree (DegreeObtentionYear, DegreeApplicationID, DegreeInstitutionID, DegreeStudyLevelID, Description) VALUES (?, ?, ?, ?, ?)",
-                    (_trunc(deg.DegreeObtentionYear, 4), application_id, inst_pk, sl_pk, _trunc(deg.Description, 100))
+                    "INSERT INTO ApplicationDegree (DegreeObtentionYear, DegreeApplicationID, DegreeInstitutionID, DegreeStudyLevelID, DegreeLabel) VALUES (?, ?, ?, ?, ?)",
+                    (_trunc(deg.DegreeObtentionYear, 4), application_id, inst_pk, sl_pk, _safe_required(deg.DegreeLabel, "Titre non précisé")[:100])
                 )
 
             print(f"[UPDATER] Nouveau candidat : ApplicationID={application_id}")

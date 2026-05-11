@@ -27,16 +27,30 @@ def test_extracted_application_data_model():
         ApplicationCandidateName="Alice"
     )
     skill = Skill(SkillDescription="Machine Learning")
+    degree = ApplicationDegree(DegreeLabel="Master Data Science")
     
     extracted_data = ExtractedApplicationData(
         candidate=candidate,
-        skills=[skill]
+        skills=[skill],
+        degrees=[degree]
     )
     
     assert extracted_data.candidate.ApplicationCandidateName == "Alice"
     assert len(extracted_data.skills) == 1
     assert extracted_data.skills[0].SkillDescription == "Machine Learning"
+    assert len(extracted_data.degrees) == 1
+    assert extracted_data.degrees[0].DegreeLabel == "Master Data Science"
     assert extracted_data.experiences == []  # default_factory check
+
+def test_application_degree_model():
+    degree = ApplicationDegree(DegreeLabel="Licence Informatique", DegreeObtentionYear="2024")
+    assert degree.DegreeLabel == "Licence Informatique"
+    assert degree.DegreeObtentionYear == "2024"
+
+def test_application_degree_model_missing_required():
+    with pytest.raises(ValidationError):
+        # DegreeLabel is required and strictly typed
+        ApplicationDegree()
 
 def test_score_result_model():
     score_res = ScoreResult(

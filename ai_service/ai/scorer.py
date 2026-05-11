@@ -13,8 +13,29 @@ def get_mistral_client():
     return MISTRAL_CLIENT_INSTANCE
 
 _SCORING_PROMPT = """
-Tu es un évaluateur RH expert. Note ce candidat par rapport à l'offre d'emploi.
-Retourne UNIQUEMENT un JSON strict, sans texte avant ou après.
+Tu es un évaluateur RH expert et moderne. Ton but est d'aligner ta notation sur un standard de recrutement technophile et valorisant.
+Retourne UNIQUEMENT un JSON strict.
+
+
+ÉCHELLE DE NOTATION (RÉALISTE & VALORISANTE):
+
+- 90-100 : EXCELLENT. Le candidat possède TOUTES les technos clés. Un match à 100% = 92-95.
+- 75-85  : TRÈS BON. Solide base technique, quelques technos secondaires à apprendre.
+- 55-70  : BON. Profil prometteur, mais manque de séniorité ou d'une brique majeure.
+- 40-50  : MOYEN. Écarts significatifs.
+- < 30   : INSUFFISANT. Pas de correspondance.
+
+CONSIGNES DE CALIBRAGE :
+1. TECH STACK : Accorde une importance MAJEURE aux technos modernes (Cloud, DevOps, Frameworks JS/Python). Si elles sont là, le score doit être élevé.
+2. EXPÉRIENCES : Valorise le BÉNÉVOLAT et les PROJETS comme de l'XP pro. Ne pénalise PAS les pauses ou les reconversions réussies.
+3. SENIORITÉ : Un candidat qui a le bon niveau (ex: Junior pour poste Junior) mérite 90+ en 'seniority_match'.
+
+DÉTAIL DES SCORES :
+1. skills_match (0-100) : Adéquation technologique.
+2. experience_years (0-100) : Durée globale (tech + pro).
+3. education_level (0-100) : Niveau de formation.
+4. seniority_match (0-100) : Capacité à assumer le rôle.
+
 
 OFFRE D'EMPLOI :
 {job_description}
@@ -27,38 +48,16 @@ Expériences :
 Formation :
 {education}
 
-════════════════════════════════════════════════════════════════════════════
-RÈGLES DE NOTATION
-════════════════════════════════════════════════════════════════════════════
-1. skills_match (0-100) : (compétences présentes) ÷ (compétences demandées) × 100
-2. experience_years (0-100) : Expérience PERTINENTE vs exigences
-3. education_level (0-100) : Diplôme vs offre
-4. seniority_match (0-100) : Responsabilités vs attentes
+RÉDACTION (EN FRANÇAIS):
 
-════════════════════════════════════════════════════════════════════════════
-RÉDACTION OBLIGATOIRE (EN FRANÇAIS)
-════════════════════════════════════════════════════════════════════════════
-
-"strengths" → 2-3 points forts PAR RAPPORT À L'OFFRE (10-15 mots)
-"weaknesses" → 2-3 écarts PAR RAPPORT À L'OFFRE (10-15 mots)
-"summary" → Conclusion générale (15-20 mots)
-
-════════════════════════════════════════════════════════════════════════════
-EXEMPLE CONCRET (Profil sous-qualifié)
-════════════════════════════════════════════════════════════════════════════
-{{
-  "skills_match": 55.0,
-  "experience_years": 20.0,
-  "education_level": 75.0,
-  "seniority_match": 25.0,
-  "confidence": 0.85,
-  "strengths": "Maîtrise C# et bases .NET exigés, diplôme d'ingénieur informatique",
-  "weaknesses": "Expérience .NET très limitée (2 mois vs 2 ans requis), absence contexte production",
-  "summary": "Profil junior avec potentiel technique mais clairement sous-qualifié pour les 2 ans .NET requis"
-}}
+"strengths" → 2-3 points forts (10-15 mots)
+"weaknesses" → 2-3 écarts (10-15 mots)
+"summary" → Conclusion (15-20 mots)
 
 ANALYSE CE CANDIDAT :
 """
+
+
 
 async def compute_score(ai_extracted: Any, description_poste: str) -> Dict[str, Any]:
     weights = settings.scoring_weights

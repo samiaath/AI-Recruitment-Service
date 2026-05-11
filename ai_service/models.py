@@ -47,7 +47,7 @@ class ApplicationDegree(BaseModel):
     institution_name: Optional[str] = None
     study_level_id: Optional[int] = None
     study_level_name: Optional[str] = None
-    Description: Optional[str] = None
+    DegreeLabel: str  # CHANGED to str instead of Optional[str]
 
 class Candidate(BaseModel):
     ApplicationEmail: str
