@@ -19,3 +19,4 @@ scikit-learn==1.5.2
 numpy==2.1.1
 pandas==2.2.3
 ftfy==6.2.0
+mistralai==0.1.8
