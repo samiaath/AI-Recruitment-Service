@@ -1,0 +1,4591 @@
+{
+  "timestamp": "2026-05-22T09:11:07.541816",
+  "summary": {
+    "avg_extraction_accuracy": 97.24,
+    "field_accuracies": {
+      "candidate.ApplicationCandidateName": 100.0,
+      "candidate.ApplicationEmail": 100.0,
+      "candidate.ApplicationCandidatePhone1": 100.0,
+      "skills": 99.33,
+      "experiences": 97.76,
+      "degrees": 97.6,
+      "total_years_experience": 86.0
+    },
+    "avg_score_mae": 3.62,
+    "avg_score_error_percentage": 4.1,
+    "scores_in_range": "39/50",
+    "avg_processing_time": 5.32
+  },
+  "detailed_results": [
+    {
+      "cv_id": "CV_001_Python_Dev",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.01,
+        "in_expected_range": true,
+        "expected": 99.0,
+        "actual": 98.0
+      },
+      "processing_time": {
+        "extraction_time": 3.797,
+        "total_time": 5.162
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Jean Dupont",
+          "ApplicationEmail": "jean.dupont@example.com",
+          "ApplicationCandidatePhone1": "0612345678"
+        },
+        "skills": [
+          "Python",
+          "FastAPI",
+          "Docker",
+          "SQL",
+          "Git"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Tech Solutions",
+            "ExperiencePosition": "Développeur Backend",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Web Agency",
+            "ExperiencePosition": "Développeur Fullstack",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Informatique",
+            "DegreeObtentionYear": "2020"
+          }
+        ],
+        "total_years_experience": 4.0,
+        "expected_score": 99.0,
+        "expected_score_range": [
+          94.0,
+          104.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "jean.dupont@example.com",
+          "ApplicationCandidateName": "Jean Dupont",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0612345678",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks : FastAPI",
+          "Outils : Docker, Git",
+          "Bases de données : SQL"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 5.0,
+        "score": 98.0
+      }
+    },
+    {
+      "cv_id": "CV_002_Data_Scientist",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 2.0,
+        "rmse": 2.0,
+        "error_percentage": 2.0,
+        "in_expected_range": true,
+        "expected": 100.0,
+        "actual": 98.0
+      },
+      "processing_time": {
+        "extraction_time": 3.116,
+        "total_time": 4.149
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Marie Dubois",
+          "ApplicationEmail": "marie.dubois@email.fr",
+          "ApplicationCandidatePhone1": "0798765432"
+        },
+        "skills": [
+          "Python",
+          "Machine Learning",
+          "TensorFlow",
+          "PyTorch",
+          "NLP",
+          "Scikit-Learn"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "AI Innovations",
+            "ExperiencePosition": "Data Scientist Senior",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Data Corp",
+            "ExperiencePosition": "Data Analyst",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Doctorat en Intelligence Artificielle",
+            "DegreeObtentionYear": "2018"
+          },
+          {
+            "DegreeLabel": "Ingénieur Informatique",
+            "DegreeObtentionYear": "2015"
+          }
+        ],
+        "total_years_experience": 8.0,
+        "expected_score": 100.0,
+        "expected_score_range": [
+          95.0,
+          105.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "marie.dubois@email.fr",
+          "ApplicationCandidateName": "Marie Dubois",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0798765432",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks et bibliothèques : TensorFlow, PyTorch",
+          "Domaines d'expertise : Machine Learning, NLP"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 2,
+        "total_years_experience": 9.0,
+        "score": 98.0
+      }
+    },
+    {
+      "cv_id": "CV_003_Junior_Web",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 11.0,
+        "rmse": 11.0,
+        "error_percentage": 12.64,
+        "in_expected_range": false,
+        "expected": 87.0,
+        "actual": 76.0
+      },
+      "processing_time": {
+        "extraction_time": 1.817,
+        "total_time": 2.878
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Lucas Martin",
+          "ApplicationEmail": "lucas.martin@dev.com",
+          "ApplicationCandidatePhone1": "0655443322"
+        },
+        "skills": [
+          "React",
+          "Node.js",
+          "JavaScript",
+          "HTML",
+          "CSS"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Startup Web",
+            "ExperiencePosition": "Développeur Frontend (Stage)",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence Pro Développement Web",
+            "DegreeObtentionYear": "2023"
+          }
+        ],
+        "total_years_experience": 0.5,
+        "expected_score": 87.0,
+        "expected_score_range": [
+          82.0,
+          92.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "lucas.martin@dev.com",
+          "ApplicationCandidateName": "Lucas Martin",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0655443322",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : JavaScript",
+          "Frameworks : React, Node.js",
+          "Outils : HTML, CSS"
+        ],
+        "experiences_count": 1,
+        "degrees_count": 1,
+        "total_years_experience": 0.5,
+        "score": 76.0
+      }
+    },
+    {
+      "cv_id": "CV_004_Project_Manager",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.05,
+        "in_expected_range": true,
+        "expected": 95.0,
+        "actual": 94.0
+      },
+      "processing_time": {
+        "extraction_time": 2.072,
+        "total_time": 3.239
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Sophie Bernard",
+          "ApplicationEmail": "s.bernard@pro.fr",
+          "ApplicationCandidatePhone1": "0711223344"
+        },
+        "skills": [
+          "Agile",
+          "Scrum",
+          "Gestion de Projet",
+          "Jira",
+          "Management"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Big IT Corp",
+            "ExperiencePosition": "Chef de Projet Sénior",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Consulting Group",
+            "ExperiencePosition": "Scrum Master",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Management des SI",
+            "DegreeObtentionYear": "2012"
+          }
+        ],
+        "total_years_experience": 12.0,
+        "expected_score": 95.0,
+        "expected_score_range": [
+          90.0,
+          100.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "s.bernard@pro.fr",
+          "ApplicationCandidateName": "Sophie Bernard",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0711223344",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Méthodologies : Agile, Scrum, Jira, Management"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 12.0,
+        "score": 94.0
+      }
+    },
+    {
+      "cv_id": "CV_005_DevOps",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 85.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 97.86,
+      "score_accuracy": {
+        "mae": 4.5,
+        "rmse": 4.5,
+        "error_percentage": 4.81,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 98.0
+      },
+      "processing_time": {
+        "extraction_time": 2.799,
+        "total_time": 3.784
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Thomas Petit",
+          "ApplicationEmail": "thomas.petit@ops.io",
+          "ApplicationCandidatePhone1": "0699887766"
+        },
+        "skills": [
+          "Kubernetes",
+          "AWS",
+          "Terraform",
+          "Docker",
+          "Jenkins",
+          "Linux"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Cloud Native Tech",
+            "ExperiencePosition": "Ingénieur DevOps",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "SysAdmin & Co",
+            "ExperiencePosition": "Administrateur Système",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "École d'Ingénieurs",
+            "DegreeObtentionYear": "2016"
+          }
+        ],
+        "total_years_experience": 7.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "thomas.petit@ops.io",
+          "ApplicationCandidateName": "Thomas Petit",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0699887766",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Outils : Jenkins",
+          "Cloud & Infrastructure : AWS, Terraform",
+          "Conteneurs & Orchestration : Kubernetes, Docker"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 7.1,
+        "score": 98.0
+      }
+    },
+    {
+      "cv_id": "CV_006_Reconversion",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 85.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 97.86,
+      "score_accuracy": {
+        "mae": 17.0,
+        "rmse": 17.0,
+        "error_percentage": 20.73,
+        "in_expected_range": false,
+        "expected": 82.0,
+        "actual": 65.0
+      },
+      "processing_time": {
+        "extraction_time": 2.332,
+        "total_time": 3.517
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Ahmed Hassan",
+          "ApplicationEmail": "ahmed.hassan@reconvert.io",
+          "ApplicationCandidatePhone1": "0644556677"
+        },
+        "skills": [
+          "JavaScript",
+          "React",
+          "Node.js",
+          "MongoDB",
+          "Express"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "OpenClassrooms",
+            "ExperiencePosition": "Développeur Web (Bootcamp)",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Marketing Corp",
+            "ExperiencePosition": "Chef de Produit",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Bootcamp Développement Web",
+            "DegreeObtentionYear": "2024"
+          },
+          {
+            "DegreeLabel": "Master Marketing",
+            "DegreeObtentionYear": "2015"
+          }
+        ],
+        "total_years_experience": 1.0,
+        "expected_score": 82.0,
+        "expected_score_range": [
+          77.0,
+          87.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "ahmed.hassan@reconvert.io",
+          "ApplicationCandidateName": "Ahmed Hassan",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0644556677",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : JavaScript",
+          "Frameworks : React, Node.js",
+          "Bases de données : MongoDB"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 2,
+        "total_years_experience": 8.4,
+        "score": 65.0
+      }
+    },
+    {
+      "cv_id": "CV_007_Benevolat",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 81.25,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 97.32,
+      "score_accuracy": {
+        "mae": 8.5,
+        "rmse": 8.5,
+        "error_percentage": 10.0,
+        "in_expected_range": false,
+        "expected": 85.0,
+        "actual": 76.5
+      },
+      "processing_time": {
+        "extraction_time": 2.634,
+        "total_time": 3.784
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Fatima Ben Ali",
+          "ApplicationEmail": "fatima.benali@dev.tn",
+          "ApplicationCandidatePhone1": "21655443322"
+        },
+        "skills": [
+          "Flutter",
+          "Dart",
+          "React Native",
+          "Firebase",
+          "Git"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Mozilla Tunisia",
+            "ExperiencePosition": "Contributrice Open Source",
+            "experience_type": "volunteering",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Mobile Startup",
+            "ExperiencePosition": "Développeuse Mobile (Stage)",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence Informatique",
+            "DegreeObtentionYear": "2023"
+          }
+        ],
+        "total_years_experience": 1.5,
+        "expected_score": 85.0,
+        "expected_score_range": [
+          80.0,
+          90.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "fatima.benali@dev.tn",
+          "ApplicationCandidateName": "Fatima Ben Ali",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21655443322",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Dart",
+          "Frameworks : Flutter, React Native",
+          "Bases de données : Firebase"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 0.8,
+        "score": 76.5
+      }
+    },
+    {
+      "cv_id": "CV_008_Senior_Dense",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 6.5,
+        "rmse": 6.5,
+        "error_percentage": 6.99,
+        "in_expected_range": false,
+        "expected": 93.0,
+        "actual": 99.5
+      },
+      "processing_time": {
+        "extraction_time": 2.9,
+        "total_time": 4.2
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Pierre Leclerc",
+          "ApplicationEmail": "pierre.leclerc@senior.tech",
+          "ApplicationCandidatePhone1": "0677889900"
+        },
+        "skills": [
+          "Microservices",
+          "AWS",
+          "Azure",
+          "Java",
+          "Spring Boot",
+          "Architecture Cloud",
+          "Kafka",
+          "Redis"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Tech Giant Corp",
+            "ExperiencePosition": "Architecte Principal",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Banking Solutions",
+            "ExperiencePosition": "Lead Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "E-commerce Platform",
+            "ExperiencePosition": "Senior Backend Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Consulting Firm",
+            "ExperiencePosition": "Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Ingénieur Informatique",
+            "DegreeObtentionYear": "2008"
+          }
+        ],
+        "total_years_experience": 16.0,
+        "expected_score": 93.0,
+        "expected_score_range": [
+          88.0,
+          98.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "pierre.leclerc@senior.tech",
+          "ApplicationCandidateName": "Pierre Leclerc",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0677889900",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Java",
+          "Frameworks : Spring Boot",
+          "Cloud & DevOps : AWS, Azure, Kafka, Microservices, Architecture Cloud, Redis"
+        ],
+        "experiences_count": 4,
+        "degrees_count": 1,
+        "total_years_experience": 17.0,
+        "score": 99.5
+      }
+    },
+    {
+      "cv_id": "CV_009_Autodidacte",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 36.66,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 90.95,
+      "score_accuracy": {
+        "mae": 7.0,
+        "rmse": 7.0,
+        "error_percentage": 9.33,
+        "in_expected_range": false,
+        "expected": 75.0,
+        "actual": 82.0
+      },
+      "processing_time": {
+        "extraction_time": 2.333,
+        "total_time": 3.533
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Youssef Mansour",
+          "ApplicationEmail": "youssef.mansour@coder.io",
+          "ApplicationCandidatePhone1": "21698765432"
+        },
+        "skills": [
+          "Go",
+          "PostgreSQL",
+          "Docker",
+          "gRPC",
+          "REST API",
+          "Linux"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Freelance",
+            "ExperiencePosition": "Développeur Backend",
+            "experience_type": "freelance",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Startup SaaS",
+            "ExperiencePosition": "Backend Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Baccalauréat Sciences",
+            "DegreeObtentionYear": "2018"
+          }
+        ],
+        "total_years_experience": 4.0,
+        "expected_score": 75.0,
+        "expected_score_range": [
+          70.0,
+          80.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "youssef.mansour@coder.io",
+          "ApplicationCandidateName": "Youssef Mansour",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21698765432",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Go",
+          "Bases de données : PostgreSQL",
+          "Outils DevOps : Docker",
+          "Protocoles & API : gRPC, REST API",
+          "Systèmes d'exploitation : Linux"
+        ],
+        "experiences_count": 1,
+        "degrees_count": 1,
+        "total_years_experience": 5.0,
+        "score": 82.0
+      }
+    },
+    {
+      "cv_id": "CV_010_Trous_Parcours",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 66.67,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 95.24,
+      "score_accuracy": {
+        "mae": 3.0,
+        "rmse": 3.0,
+        "error_percentage": 3.23,
+        "in_expected_range": true,
+        "expected": 93.0,
+        "actual": 96.0
+      },
+      "processing_time": {
+        "extraction_time": 2.15,
+        "total_time": 3.202
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Laura Vincent",
+          "ApplicationEmail": "laura.vincent@qa.test",
+          "ApplicationCandidatePhone1": "0611223344"
+        },
+        "skills": [
+          "Selenium",
+          "Cypress",
+          "Python",
+          "JavaScript",
+          "CI/CD",
+          "Jira"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Software Testing Co",
+            "ExperiencePosition": "QA Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Web Solutions",
+            "ExperiencePosition": "Test Automation Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Informatique",
+            "DegreeObtentionYear": "2016"
+          }
+        ],
+        "total_years_experience": 5.0,
+        "expected_score": 93.0,
+        "expected_score_range": [
+          88.0,
+          98.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "laura.vincent@qa.test",
+          "ApplicationCandidateName": "Laura Vincent",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "0611223344",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks et outils de test : Selenium, Cypress",
+          "CI/CD : CI/CD"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 6.0,
+        "score": 96.0
+      }
+    },
+    {
+      "cv_id": "CV_011_Projets_Academiques",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 3.0,
+        "rmse": 3.0,
+        "error_percentage": 3.8,
+        "in_expected_range": true,
+        "expected": 79.0,
+        "actual": 76.0
+      },
+      "processing_time": {
+        "extraction_time": 2.343,
+        "total_time": 32.521
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Inès Trabelsi",
+          "ApplicationEmail": "ines.trabelsi@data.tn",
+          "ApplicationCandidatePhone1": "21655667788"
+        },
+        "skills": [
+          "Python",
+          "Airflow",
+          "Spark",
+          "SQL",
+          "Kafka",
+          "AWS S3"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Data Consulting",
+            "ExperiencePosition": "Data Engineer (Stage)",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Data Science",
+            "DegreeObtentionYear": "2024"
+          },
+          {
+            "DegreeLabel": "Licence Mathématiques Appliquées",
+            "DegreeObtentionYear": "2022"
+          }
+        ],
+        "total_years_experience": 0.5,
+        "expected_score": 79.0,
+        "expected_score_range": [
+          74.0,
+          84.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "ines.trabelsi@data.tn",
+          "ApplicationCandidateName": "Inès Trabelsi",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21655667788",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks et outils ETL : Airflow, Spark",
+          "Bases de données : SQL",
+          "Messagerie et streaming : Kafka",
+          "Cloud et stockage : AWS S3"
+        ],
+        "experiences_count": 1,
+        "degrees_count": 1,
+        "total_years_experience": 1.0,
+        "score": 76.0
+      }
+    },
+    {
+      "cv_id": "CV_012_Multilingue",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.11,
+        "in_expected_range": true,
+        "expected": 90.0,
+        "actual": 89.0
+      },
+      "processing_time": {
+        "extraction_time": 2.928,
+        "total_time": 4.328
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Karim Ben Salah",
+          "ApplicationEmail": "karim.bensalah@sec.tn",
+          "ApplicationCandidatePhone1": "21699887766"
+        },
+        "skills": [
+          "SIEM",
+          "Splunk",
+          "Incident Response",
+          "Python",
+          "Linux",
+          "Firewall"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Cybersecurity Corp",
+            "ExperiencePosition": "SOC Analyst",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Banking IT Security",
+            "ExperiencePosition": "Security Engineer (Stage)",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Sécurité Informatique",
+            "DegreeObtentionYear": "2021"
+          }
+        ],
+        "total_years_experience": 3.5,
+        "expected_score": 90.0,
+        "expected_score_range": [
+          85.0,
+          95.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "karim.bensalah@sec.tn",
+          "ApplicationCandidateName": "Karim Ben Salah",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21699887766",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Outils et technologies : SIEM, Splunk, Linux, Firewall",
+          "Compétences métiers : Incident Response",
+          "Langues : French (Fluent), English (Professional)"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 4.2,
+        "score": 89.0
+      }
+    },
+    {
+      "cv_id": "CV_013_International",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 50.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 89.43,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.04,
+        "in_expected_range": true,
+        "expected": 96.0,
+        "actual": 95.0
+      },
+      "processing_time": {
+        "extraction_time": 5.939,
+        "total_time": 7.135
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "James Okonkwo",
+          "ApplicationEmail": "james.okonkwo@techcorp.ca",
+          "ApplicationCandidatePhone1": "14165557890"
+        },
+        "skills": [
+          "TypeScript",
+          "React",
+          "Node.js",
+          "GraphQL",
+          "PostgreSQL",
+          "AWS",
+          "Docker",
+          "Jest"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "FinTech Global Inc",
+            "ExperiencePosition": "Senior Full Stack Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "SaaS Platform Co",
+            "ExperiencePosition": "Full Stack Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Web Agency",
+            "ExperiencePosition": "Junior Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Bachelor of Computer Science",
+            "DegreeObtentionYear": "2017"
+          }
+        ],
+        "total_years_experience": 7.0,
+        "expected_score": 96.0,
+        "expected_score_range": [
+          91.0,
+          101.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "james.okonkwo@techcorp.ca",
+          "ApplicationCandidateName": "James Okonkwo",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "14165557890",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": "Toronto, Canada"
+        },
+        "skills": [
+          "Langages de programmation : TypeScript",
+          "Frameworks : React, Node.js",
+          "Bases de données : PostgreSQL",
+          "Cloud & DevOps : AWS, Docker",
+          "Tests : Jest",
+          "Autres compétences : GraphQL"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 2,
+        "total_years_experience": 9.4,
+        "score": 95.0
+      }
+    },
+    {
+      "cv_id": "CV_014_Changements_Frequents",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 10.5,
+        "rmse": 10.5,
+        "error_percentage": 12.96,
+        "in_expected_range": false,
+        "expected": 81.0,
+        "actual": 91.5
+      },
+      "processing_time": {
+        "extraction_time": 3.666,
+        "total_time": 4.636
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Rania Chaabane",
+          "ApplicationEmail": "rania.chaabane@dev.tn",
+          "ApplicationCandidatePhone1": "21692111222"
+        },
+        "skills": [
+          "Vue.js",
+          "React",
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "Git",
+          "Docker"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Agence Pixel",
+            "ExperiencePosition": "Dev Frontend",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Startup Edtech",
+            "ExperiencePosition": "Dev Full Stack",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "SaaS Company",
+            "ExperiencePosition": "Dev Vue.js",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Consulting IT",
+            "ExperiencePosition": "Dev Laravel",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Agence Web Creativ",
+            "ExperiencePosition": "Dev PHP",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Tech Solutions Tunis",
+            "ExperiencePosition": "Dev Junior",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence Informatique Appliquée",
+            "DegreeObtentionYear": "2021"
+          }
+        ],
+        "total_years_experience": 3.0,
+        "expected_score": 81.0,
+        "expected_score_range": [
+          76.0,
+          86.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "rania.chaabane@dev.tn",
+          "ApplicationCandidateName": "Rania Chaabane",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21692111222",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : PHP",
+          "Frameworks : Vue.js, React, Laravel",
+          "Bases de données : MySQL",
+          "Outils : Git, Docker"
+        ],
+        "experiences_count": 6,
+        "degrees_count": 1,
+        "total_years_experience": 2.7,
+        "score": 91.5
+      }
+    },
+    {
+      "cv_id": "CV_015_Freelance_Pur",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 2.5,
+        "rmse": 2.5,
+        "error_percentage": 2.69,
+        "in_expected_range": true,
+        "expected": 93.0,
+        "actual": 95.5
+      },
+      "processing_time": {
+        "extraction_time": 3.634,
+        "total_time": 4.866
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Mehdi Gharbi",
+          "ApplicationEmail": "mehdi.gharbi@freelance.dev",
+          "ApplicationCandidatePhone1": "21655321654"
+        },
+        "skills": [
+          "Python",
+          "Django",
+          "React",
+          "PostgreSQL",
+          "Redis",
+          "Docker",
+          "REST API",
+          "Stripe API"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "RetailShop Maroc",
+            "ExperiencePosition": "Développeur Freelance",
+            "experience_type": "freelance",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "HealthTech Startup",
+            "ExperiencePosition": "Développeur Freelance",
+            "experience_type": "freelance",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "LogiCorp Tunisia",
+            "ExperiencePosition": "Développeur Freelance",
+            "experience_type": "freelance",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "HotelGroup SA",
+            "ExperiencePosition": "Développeur Freelance",
+            "experience_type": "freelance",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "ONG Solidarité",
+            "ExperiencePosition": "Développeur Freelance",
+            "experience_type": "freelance",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme National d'Ingénieur en Informatique",
+            "DegreeObtentionYear": "2019"
+          }
+        ],
+        "total_years_experience": 5.0,
+        "expected_score": 93.0,
+        "expected_score_range": [
+          88.0,
+          98.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "mehdi.gharbi@freelance.dev",
+          "ApplicationCandidateName": "Mehdi Gharbi",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21655321654",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks : Django, React",
+          "Bases de données : PostgreSQL, Redis",
+          "Outils DevOps : Docker",
+          "APIs : REST API, Stripe API"
+        ],
+        "experiences_count": 5,
+        "degrees_count": 1,
+        "total_years_experience": 7.4,
+        "score": 95.5
+      }
+    },
+    {
+      "cv_id": "CV_016_Tech_Management",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 4.1,
+        "rmse": 4.1,
+        "error_percentage": 4.36,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 98.1
+      },
+      "processing_time": {
+        "extraction_time": 3.036,
+        "total_time": 4.051
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Sarra Khelifi",
+          "ApplicationEmail": "sarra.khelifi@tech-lead.io",
+          "ApplicationCandidatePhone1": "21671445566"
+        },
+        "skills": [
+          "Java",
+          "Spring Boot",
+          "Microservices",
+          "Kubernetes",
+          "Kafka",
+          "MongoDB",
+          "Leadership",
+          "Agile",
+          "Scrum",
+          "OKR"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Fintech Corp",
+            "ExperiencePosition": "Engineering Manager",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Telecom Solutions SA",
+            "ExperiencePosition": "Tech Lead Backend",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "ERP Publisher",
+            "ExperiencePosition": "Développeur Senior Java",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Ingénieur en Génie Logiciel",
+            "DegreeObtentionYear": "2014"
+          }
+        ],
+        "total_years_experience": 10.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "sarra.khelifi@tech-lead.io",
+          "ApplicationCandidateName": "Sarra Khelifi",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21671445566",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Java",
+          "Frameworks : Spring Boot",
+          "Architecture : Microservices, Kubernetes, Kafka",
+          "Bases de données : MongoDB",
+          "Management & Méthodologies : Leadership, Recrutement technique, Code Review, Agile/Scrum, OKR"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 1,
+        "total_years_experience": 12.4,
+        "score": 98.1
+      }
+    },
+    {
+      "cv_id": "CV_017_Certifications",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 3.1,
+        "rmse": 3.1,
+        "error_percentage": 3.3,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 97.1
+      },
+      "processing_time": {
+        "extraction_time": 2.733,
+        "total_time": 3.866
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Nizar Hamdi",
+          "ApplicationEmail": "nizar.hamdi@certified.cloud",
+          "ApplicationCandidatePhone1": "21698776543"
+        },
+        "skills": [
+          "AWS",
+          "Terraform",
+          "Kubernetes",
+          "Docker",
+          "Jenkins",
+          "Ansible",
+          "Python",
+          "Bash"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Digital Services Corp",
+            "ExperiencePosition": "Cloud Architect",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Telecom Tunisia",
+            "ExperiencePosition": "DevOps Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "DataCenter Pro",
+            "ExperiencePosition": "Administrateur Systèmes Linux",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Professionnel Réseaux & Systèmes",
+            "DegreeObtentionYear": "2013"
+          }
+        ],
+        "total_years_experience": 11.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "nizar.hamdi@certified.cloud",
+          "ApplicationCandidateName": "Nizar Hamdi",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21698776543",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Cloud & DevOps : AWS, Terraform, Kubernetes, Docker, Jenkins, Ansible",
+          "Langages de programmation : Python, Bash",
+          "Certifications : AWS Certified Solutions Architect Professional, AWS Certified DevOps Engineer, HashiCorp Terraform Associate, Certified Kubernetes Administrator - CKA, PMP - Project Management Professional"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 1,
+        "total_years_experience": 13.4,
+        "score": 97.1
+      }
+    },
+    {
+      "cv_id": "CV_018_Chercheur_PostDoc",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 3.0,
+        "rmse": 3.0,
+        "error_percentage": 3.16,
+        "in_expected_range": true,
+        "expected": 95.0,
+        "actual": 98.0
+      },
+      "processing_time": {
+        "extraction_time": 3.618,
+        "total_time": 4.802
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Dr. Leila Ben Fredj",
+          "ApplicationEmail": "leila.benfredj@research.tn",
+          "ApplicationCandidatePhone1": "21673654321"
+        },
+        "skills": [
+          "Python",
+          "PyTorch",
+          "Transformers",
+          "NLP",
+          "BERT",
+          "LLM fine-tuning",
+          "TensorFlow",
+          "Scikit-learn"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "LORIA Lab",
+            "ExperiencePosition": "Post-Doctoral Researcher",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "INRIA Sophia-Antipolis",
+            "ExperiencePosition": "PhD Research Assistant",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Hugging Face",
+            "ExperiencePosition": "NLP Research Intern",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Doctorat en Traitement Automatique du Langage",
+            "DegreeObtentionYear": "2023"
+          },
+          {
+            "DegreeLabel": "Master Recherche Intelligence Artificielle",
+            "DegreeObtentionYear": "2019"
+          },
+          {
+            "DegreeLabel": "Licence Informatique",
+            "DegreeObtentionYear": "2017"
+          }
+        ],
+        "total_years_experience": 6.0,
+        "expected_score": 95.0,
+        "expected_score_range": [
+          90.0,
+          100.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "leila.benfredj@research.tn",
+          "ApplicationCandidateName": "Leila Ben Fredj",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21673654321",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks et bibliothèques : PyTorch, Transformers (HuggingFace), TensorFlow, Scikit-learn",
+          "Domaines d'expertise : NLP, BERT, LLM fine-tuning, Research methodology, Academic writing"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 3,
+        "total_years_experience": 6.9,
+        "score": 98.0
+      }
+    },
+    {
+      "cv_id": "CV_019_Non_IT",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "error_percentage": 0,
+        "in_expected_range": true,
+        "expected": 0.0,
+        "actual": 0.0
+      },
+      "processing_time": {
+        "extraction_time": 3.683,
+        "total_time": 8.967
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Walid Mejri",
+          "ApplicationEmail": "walid.mejri@compta.tn",
+          "ApplicationCandidatePhone1": "21655198732"
+        },
+        "skills": [
+          "Comptabilité générale",
+          "Fiscalité",
+          "Audit",
+          "Sage 100",
+          "Excel avancé",
+          "Contrôle de gestion"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Cabinet Mejri & Associés",
+            "ExperiencePosition": "Expert Comptable",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Groupe Industriel BTA",
+            "ExperiencePosition": "Comptable Senior",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "PME Import/Export",
+            "ExperiencePosition": "Comptable",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Expert Comptable",
+            "DegreeObtentionYear": "2018"
+          },
+          {
+            "DegreeLabel": "Mastère Comptabilité Contrôle Audit",
+            "DegreeObtentionYear": "2012"
+          }
+        ],
+        "total_years_experience": 12.0,
+        "expected_score": 0.0,
+        "expected_score_range": [
+          0.0,
+          10.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "walid.mejri@compta.tn",
+          "ApplicationCandidateName": "Walid Mejri",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21655198732",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Logiciels de comptabilité : Sage 100",
+          "Outils bureautiques : Excel avancé",
+          "Domaines de compétence : Comptabilité générale, Fiscalité, Audit, Déclarations TVA, Bilan comptable, Contrôle de gestion"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 2,
+        "total_years_experience": 14.4,
+        "score": 0.0
+      }
+    },
+    {
+      "cv_id": "CV_020_Minimal",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 8.0,
+        "rmse": 8.0,
+        "error_percentage": 9.52,
+        "in_expected_range": false,
+        "expected": 84.0,
+        "actual": 76.0
+      },
+      "processing_time": {
+        "extraction_time": 2.135,
+        "total_time": 3.152
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Adam Slimane",
+          "ApplicationEmail": "adam.slimane@mail.com",
+          "ApplicationCandidatePhone1": "21656000111"
+        },
+        "skills": [
+          "Python",
+          "Flask",
+          "SQL",
+          "Git"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "DataTech",
+            "ExperiencePosition": "Dev Python",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence Informatique",
+            "DegreeObtentionYear": "2024"
+          }
+        ],
+        "total_years_experience": 0.5,
+        "expected_score": 84.0,
+        "expected_score_range": [
+          79.0,
+          89.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "adam.slimane@mail.com",
+          "ApplicationCandidateName": "Adam Slimane",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21656000111",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks : Flask",
+          "Bases de données : SQL",
+          "Outils : Git"
+        ],
+        "experiences_count": 1,
+        "degrees_count": 1,
+        "total_years_experience": 0.5,
+        "score": 76.0
+      }
+    },
+    {
+      "cv_id": "CV_021_Europass",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 80.0
+      },
+      "extraction_avg_accuracy": 97.14,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.06,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 95.0
+      },
+      "processing_time": {
+        "extraction_time": 7.533,
+        "total_time": 8.476
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Elena Popescu",
+          "ApplicationEmail": "elena.popescu@eu.dev",
+          "ApplicationCandidatePhone1": "40721456789"
+        },
+        "skills": [
+          "Java",
+          "Spring Boot",
+          "Microservices",
+          "AWS",
+          "Docker",
+          "Kubernetes",
+          "Oracle DB",
+          "REST",
+          "SOAP"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "TechEU Solutions",
+            "ExperiencePosition": "Senior Java Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Banking Software SRL",
+            "ExperiencePosition": "Java Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Web Factory Romania",
+            "ExperiencePosition": "Junior Developer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Bachelor of Engineering - Computer Science",
+            "DegreeObtentionYear": "2014"
+          }
+        ],
+        "total_years_experience": 10.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "elena.popescu@eu.dev",
+          "ApplicationCandidateName": "Elena Popescu",
+          "ApplicationCandidateBirthDate": "1990-03-15",
+          "ApplicationCandidatePhone1": "40721456789",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Java",
+          "Frameworks : Spring Boot",
+          "Architecture : Microservices",
+          "Cloud & DevOps : AWS, Docker, Kubernetes",
+          "Bases de données : Oracle DB",
+          "Protocoles & Standards : REST, SOAP",
+          "Soft Skills : Anglais (C1), Français (B2)"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 1,
+        "total_years_experience": 12.0,
+        "score": 95.0
+      }
+    },
+    {
+      "cv_id": "CV_022_Bilingue",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 50.0,
+        "total_years_experience": 86.0
+      },
+      "extraction_avg_accuracy": 90.86,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.06,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 93.0
+      },
+      "processing_time": {
+        "extraction_time": 3.26,
+        "total_time": 8.596
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Bilel Triki",
+          "ApplicationEmail": "bilel.triki@bilingual.io",
+          "ApplicationCandidatePhone1": "21697654321"
+        },
+        "skills": [
+          "Apache Spark",
+          "Kafka",
+          "Airflow",
+          "dbt",
+          "Snowflake",
+          "BigQuery",
+          "Python",
+          "SQL",
+          "Scala",
+          "AWS",
+          "Azure Data Factory"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "International Fintech",
+            "ExperiencePosition": "Data Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Banque Nationale Tunisienne",
+            "ExperiencePosition": "Ingénieur Données",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Capgemini Tunisia",
+            "ExperiencePosition": "Data Analyst Intern",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Ingénieur en Informatique",
+            "DegreeObtentionYear": "2020"
+          }
+        ],
+        "total_years_experience": 5.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "bilel.triki@bilingual.io",
+          "ApplicationCandidateName": "Bilel Triki",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21697654321",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python, Scala, Bash",
+          "Frameworks et outils de traitement de données : Apache Spark, Kafka, Airflow, dbt, Snowflake, BigQuery",
+          "Cloud et bases de données : AWS S3, AWS Glue, AWS Redshift, Azure Data Factory, SQL"
+        ],
+        "experiences_count": 3,
+        "degrees_count": 2,
+        "total_years_experience": 7.4,
+        "score": 93.0
+      }
+    },
+    {
+      "cv_id": "CV_023_Alternant",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 80.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 97.14,
+      "score_accuracy": {
+        "mae": 12.5,
+        "rmse": 12.5,
+        "error_percentage": 16.45,
+        "in_expected_range": false,
+        "expected": 76.0,
+        "actual": 88.5
+      },
+      "processing_time": {
+        "extraction_time": 7.254,
+        "total_time": 8.424
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Yasmine Oueslati",
+          "ApplicationEmail": "yasmine.oueslati@student.tn",
+          "ApplicationCandidatePhone1": "21653876543"
+        },
+        "skills": [
+          "Python",
+          "Bash",
+          "Linux",
+          "Wireshark",
+          "Nmap",
+          "Metasploit",
+          "TCP/IP",
+          "Active Directory"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Banque de Tunisie",
+            "ExperiencePosition": "Alternance Cybersécurité",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Orange Tunisie",
+            "ExperiencePosition": "Stage Réseaux",
+            "experience_type": "internship",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Cycle Ingénieur Cybersécurité",
+            "DegreeObtentionYear": "2025"
+          },
+          {
+            "DegreeLabel": "Classes Préparatoires Maths-Physique",
+            "DegreeObtentionYear": "2022"
+          }
+        ],
+        "total_years_experience": 1.0,
+        "expected_score": 76.0,
+        "expected_score_range": [
+          71.0,
+          81.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "yasmine.oueslati@student.tn",
+          "ApplicationCandidateName": "Yasmine Oueslati",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21653876543",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python, Bash",
+          "Outils de cybersécurité : Wireshark, Nmap, Metasploit, SIEM",
+          "Systèmes et réseaux : Linux, Réseaux TCP/IP, Active Directory",
+          "Soft Skills : CTF challenges"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 2,
+        "total_years_experience": 2.2,
+        "score": 88.5
+      }
+    },
+    {
+      "cv_id": "CV_024_Consultant_Multi",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 3.0,
+        "rmse": 3.0,
+        "error_percentage": 3.19,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 97.0
+      },
+      "processing_time": {
+        "extraction_time": 3.72,
+        "total_time": 9.147
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Anis Boughanmi",
+          "ApplicationEmail": "anis.boughanmi@consultant.io",
+          "ApplicationCandidatePhone1": "21671234567"
+        },
+        "skills": [
+          "Architecture SI",
+          "TOGAF",
+          "SAP",
+          "Salesforce",
+          "ServiceNow",
+          "AMOA",
+          "Conduite du changement",
+          "ITIL v4",
+          "Gestion de projet"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Société Générale",
+            "ExperiencePosition": "Consultant Senior Architecture",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "BNP Paribas",
+            "ExperiencePosition": "Consultant ERP SAP",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Telecom Africa Group",
+            "ExperiencePosition": "Consultant Salesforce CRM",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Ministère des Finances Tunisie",
+            "ExperiencePosition": "Analyste AMOA",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Systèmes d'Information",
+            "DegreeObtentionYear": "2015"
+          },
+          {
+            "DegreeLabel": "Ingénieur Informatique",
+            "DegreeObtentionYear": "2012"
+          }
+        ],
+        "total_years_experience": 9.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "anis.boughanmi@consultant.io",
+          "ApplicationCandidateName": "Anis Boughanmi",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21671234567",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Architecture et Méthodologies : TOGAF, ITIL v4, AMOA, Conduite du changement",
+          "ERP et CRM : SAP, SAP S/4HANA, Salesforce, ServiceNow",
+          "Gestion de projet : Gestion de projet"
+        ],
+        "experiences_count": 4,
+        "degrees_count": 2,
+        "total_years_experience": 11.4,
+        "score": 97.0
+      }
+    },
+    {
+      "cv_id": "CV_025_Senior_20ans",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 2.0,
+        "rmse": 2.0,
+        "error_percentage": 2.13,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 96.0
+      },
+      "processing_time": {
+        "extraction_time": 4.9,
+        "total_time": 10.333
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Habib Rezgui",
+          "ApplicationEmail": "habib.rezgui@senior-architect.tn",
+          "ApplicationCandidatePhone1": "21671889900"
+        },
+        "skills": [
+          "Architecture distribuée",
+          "Java EE",
+          ".NET",
+          "Oracle",
+          "AWS",
+          "Azure",
+          "Microservices",
+          "Leadership",
+          "Management",
+          "Recrutement"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Groupe Assurance Tunisie",
+            "ExperiencePosition": "CTO",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Banque Zitouna",
+            "ExperiencePosition": "Directeur des Systèmes d'Information",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "IBM Tunisia",
+            "ExperiencePosition": "Architecte Solutions Senior",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Telnet Holding",
+            "ExperiencePosition": "Chef de Projet Technique",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Sopra Tunisia",
+            "ExperiencePosition": "Développeur Senior Java",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "BIAT",
+            "ExperiencePosition": "Développeur",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Ingénieur Informatique",
+            "DegreeObtentionYear": "1999"
+          },
+          {
+            "DegreeLabel": "MBA Management & Stratégie",
+            "DegreeObtentionYear": "2010"
+          }
+        ],
+        "total_years_experience": 25.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "habib.rezgui@senior-architect.tn",
+          "ApplicationCandidateName": "Habib Rezgui",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "21671889900",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : .NET, Java EE",
+          "Bases de données : Oracle, SQL Server",
+          "Cloud & DevOps : AWS, Azure, Cloud hybride, Microservices",
+          "Leadership & Management : Leadership technique, Gestion de budget IT, Vision stratégique, Recrutement",
+          "Architecture & Méthodologies : Architecture distribuée",
+          "Certifications : TOGAF 9"
+        ],
+        "experiences_count": 6,
+        "degrees_count": 2,
+        "total_years_experience": 27.4,
+        "score": 96.0
+      }
+    },
+    {
+      "cv_id": "CV_026_Fullstack_MERN",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 2.0,
+        "rmse": 2.0,
+        "error_percentage": 2.14,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 95.5
+      },
+      "processing_time": {
+        "extraction_time": 2.505,
+        "total_time": 3.485
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Sami Ben Mustapha",
+          "ApplicationEmail": "sami.ben.mustapha@example.com",
+          "ApplicationCandidatePhone1": "+33 6 33 90 45 38"
+        },
+        "skills": [
+          "React",
+          "Node",
+          "MongoDB",
+          "Express",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Criteo",
+            "ExperiencePosition": "Dev Fullstack JS",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Ubisoft",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence en Informatique - ESPRIT",
+            "DegreeObtentionYear": "2022",
+            "Institution": "ESPRIT"
+          }
+        ],
+        "total_years_experience": 8.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "sami.ben.mustapha@example.com",
+          "ApplicationCandidateName": "Sami Ben Mustapha",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33633904538",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : JavaScript",
+          "Frameworks : React, Node, Express",
+          "Bases de données : MongoDB",
+          "Outils : Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 95.5
+      }
+    },
+    {
+      "cv_id": "CV_027_Data_Engineer",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 86.0
+      },
+      "extraction_avg_accuracy": 98.0,
+      "score_accuracy": {
+        "mae": 6.0,
+        "rmse": 6.0,
+        "error_percentage": 6.42,
+        "in_expected_range": false,
+        "expected": 93.5,
+        "actual": 99.5
+      },
+      "processing_time": {
+        "extraction_time": 2.557,
+        "total_time": 3.613
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Claire Leroy",
+          "ApplicationEmail": "claire.leroy@example.com",
+          "ApplicationCandidatePhone1": "+33 6 20 99 92 53"
+        },
+        "skills": [
+          "Spark",
+          "Hadoop",
+          "Airflow",
+          "Python",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "OvhCloud",
+            "ExperiencePosition": "Data Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Capgemini",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - ESPRIT",
+            "DegreeObtentionYear": "2015",
+            "Institution": "ESPRIT"
+          }
+        ],
+        "total_years_experience": 9.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "claire.leroy@example.com",
+          "ApplicationCandidateName": "Claire Leroy",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33620999253",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Frameworks et outils Big Data : Spark, Hadoop, Airflow",
+          "Outils de versioning et méthodologies : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 99.5
+      }
+    },
+    {
+      "cv_id": "CV_028_QA_Automation",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "error_percentage": 0.0,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 93.5
+      },
+      "processing_time": {
+        "extraction_time": 2.307,
+        "total_time": 7.781
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Marc Tremblay",
+          "ApplicationEmail": "marc.tremblay@example.com",
+          "ApplicationCandidatePhone1": "+33 6 31 25 83 73"
+        },
+        "skills": [
+          "Selenium",
+          "Cypress",
+          "automatisation",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "PayFit",
+            "ExperiencePosition": "QA Engineer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Aircall",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Spécialisé - ENSI",
+            "DegreeObtentionYear": "2019",
+            "Institution": "ENSI"
+          }
+        ],
+        "total_years_experience": 10.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "marc.tremblay@example.com",
+          "ApplicationCandidateName": "Marc Tremblay",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33631258373",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Frameworks : Selenium, Cypress",
+          "Outils : Git, Agile",
+          "Méthodologies : Automatisation"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 93.5
+      }
+    },
+    {
+      "cv_id": "CV_029_UX_UI_Designer",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "error_percentage": 0.0,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 93.5
+      },
+      "processing_time": {
+        "extraction_time": 2.456,
+        "total_time": 3.769
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Julie Morel",
+          "ApplicationEmail": "julie.morel@example.com",
+          "ApplicationCandidatePhone1": "+33 6 57 62 89 20"
+        },
+        "skills": [
+          "Figma",
+          "Adobe XD",
+          "parcours utilisateur",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "PayFit",
+            "ExperiencePosition": "UX/UI Designer",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "OvhCloud",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence en Informatique - Mines ParisTech",
+            "DegreeObtentionYear": "2013",
+            "Institution": "Mines ParisTech"
+          }
+        ],
+        "total_years_experience": 11.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "julie.morel@example.com",
+          "ApplicationCandidateName": "Julie Morel",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33657628920",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Design UX/UI : Figma, Adobe XD, parcours utilisateur",
+          "Outils de développement : Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 93.5
+      }
+    },
+    {
+      "cv_id": "CV_030_Rust_Developer",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 16.0
+      },
+      "extraction_avg_accuracy": 88.0,
+      "score_accuracy": {
+        "mae": 2.5,
+        "rmse": 2.5,
+        "error_percentage": 2.6,
+        "in_expected_range": true,
+        "expected": 96.0,
+        "actual": 98.5
+      },
+      "processing_time": {
+        "extraction_time": 2.205,
+        "total_time": 3.245
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Antoine Dupont",
+          "ApplicationEmail": "antoine.dupont@example.com",
+          "ApplicationCandidatePhone1": "+33 6 45 96 66 52"
+        },
+        "skills": [
+          "Rust",
+          "C++",
+          "Go",
+          "systèmes embarqués",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Orange Business",
+            "ExperiencePosition": "Développeur Rust/C++",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Alan",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master en Informatique - INSA Lyon",
+            "DegreeObtentionYear": "2021",
+            "Institution": "INSA Lyon"
+          }
+        ],
+        "total_years_experience": 2.0,
+        "expected_score": 96.0,
+        "expected_score_range": [
+          91.0,
+          101.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "antoine.dupont@example.com",
+          "ApplicationCandidateName": "Antoine Dupont",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33645966652",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Rust, C++, Go",
+          "Outils : Git, Agile",
+          "Systèmes embarqués : systèmes embarqués"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 98.5
+      }
+    },
+    {
+      "cv_id": "CV_031_Game_Developer",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 1.1,
+        "rmse": 1.1,
+        "error_percentage": 1.15,
+        "in_expected_range": true,
+        "expected": 96.0,
+        "actual": 97.1
+      },
+      "processing_time": {
+        "extraction_time": 2.238,
+        "total_time": 3.287
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Léa Rousseau",
+          "ApplicationEmail": "léa.rousseau@example.com",
+          "ApplicationCandidatePhone1": "+33 6 23 36 25 42"
+        },
+        "skills": [
+          "C#",
+          "Unity 3D",
+          "gameplay",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Sopra Steria",
+            "ExperiencePosition": "Game Dev Unity",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Capgemini",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - INSA Lyon",
+            "DegreeObtentionYear": "2018",
+            "Institution": "INSA Lyon"
+          }
+        ],
+        "total_years_experience": 3.0,
+        "expected_score": 96.0,
+        "expected_score_range": [
+          91.0,
+          101.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "léa.rousseau@example.com",
+          "ApplicationCandidateName": "Léa Rousseau",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33623362542",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : C#",
+          "Frameworks : Unity 3D",
+          "Outils : Git, Agile",
+          "Soft Skills : gameplay"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 97.1
+      }
+    },
+    {
+      "cv_id": "CV_032_Blockchain_Dev",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 3.5,
+        "rmse": 3.5,
+        "error_percentage": 3.68,
+        "in_expected_range": true,
+        "expected": 95.0,
+        "actual": 98.5
+      },
+      "processing_time": {
+        "extraction_time": 2.438,
+        "total_time": 3.603
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Paul Bernard",
+          "ApplicationEmail": "paul.bernard@example.com",
+          "ApplicationCandidatePhone1": "+33 6 57 77 91 55"
+        },
+        "skills": [
+          "Solidity",
+          "Ethereum",
+          "Web3",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Ubisoft",
+            "ExperiencePosition": "Dev Blockchain",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Ledger",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Data Science - Mines ParisTech",
+            "DegreeObtentionYear": "2017",
+            "Institution": "Mines ParisTech"
+          }
+        ],
+        "total_years_experience": 4.0,
+        "expected_score": 95.0,
+        "expected_score_range": [
+          90.0,
+          100.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "paul.bernard@example.com",
+          "ApplicationCandidateName": "Paul Bernard",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33657779155",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Solidity",
+          "Frameworks et outils Blockchain : Ethereum, Web3",
+          "Outils de développement : Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 98.5
+      }
+    },
+    {
+      "cv_id": "CV_033_CyberSec_Analyst",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 0.5,
+        "rmse": 0.5,
+        "error_percentage": 0.53,
+        "in_expected_range": true,
+        "expected": 95.0,
+        "actual": 94.5
+      },
+      "processing_time": {
+        "extraction_time": 2.142,
+        "total_time": 3.191
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Emma Petit",
+          "ApplicationEmail": "emma.petit@example.com",
+          "ApplicationCandidatePhone1": "+33 6 26 70 45 16"
+        },
+        "skills": [
+          "Pentest",
+          "SIEM",
+          "Kali Linux",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Capgemini",
+            "ExperiencePosition": "Analyste Cybersécurité",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Dassault Systèmes",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Spécialisé - Université Paris-Saclay",
+            "DegreeObtentionYear": "2013",
+            "Institution": "Université Paris-Saclay"
+          }
+        ],
+        "total_years_experience": 5.0,
+        "expected_score": 95.0,
+        "expected_score_range": [
+          90.0,
+          100.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "emma.petit@example.com",
+          "ApplicationCandidateName": "Emma Petit",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33626704516",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Sécurité informatique : Pentest, SIEM, Kali Linux",
+          "Outils et méthodologies : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 94.5
+      }
+    },
+    {
+      "cv_id": "CV_034_BI_Consultant",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 56.0
+      },
+      "extraction_avg_accuracy": 93.71,
+      "score_accuracy": {
+        "mae": 3.5,
+        "rmse": 3.5,
+        "error_percentage": 3.68,
+        "in_expected_range": true,
+        "expected": 95.0,
+        "actual": 91.5
+      },
+      "processing_time": {
+        "extraction_time": 2.401,
+        "total_time": 7.84
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Lucas Martin",
+          "ApplicationEmail": "lucas.martin@example.com",
+          "ApplicationCandidatePhone1": "+33 6 41 85 78 13"
+        },
+        "skills": [
+          "PowerBI",
+          "DAX",
+          "SQL Server",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Orange Business",
+            "ExperiencePosition": "Consultant BI PowerBI",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Ledger",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Bachelor Web & Mobile - Université Paris-Saclay",
+            "DegreeObtentionYear": "2013",
+            "Institution": "Université Paris-Saclay"
+          }
+        ],
+        "total_years_experience": 6.0,
+        "expected_score": 95.0,
+        "expected_score_range": [
+          90.0,
+          100.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "lucas.martin@example.com",
+          "ApplicationCandidateName": "Lucas Martin",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33641857813",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Outils : Git, Agile",
+          "Bases de données : SQL Server",
+          "Business Intelligence : PowerBI, DAX"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 91.5
+      }
+    },
+    {
+      "cv_id": "CV_035_Mobile_iOS",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 66.0
+      },
+      "extraction_avg_accuracy": 95.14,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.07,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 94.5
+      },
+      "processing_time": {
+        "extraction_time": 2.361,
+        "total_time": 3.516
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Chloé Dubois",
+          "ApplicationEmail": "chloé.dubois@example.com",
+          "ApplicationCandidatePhone1": "+33 6 69 71 14 22"
+        },
+        "skills": [
+          "Swift",
+          "Objective-C",
+          "CoreData",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Orange Business",
+            "ExperiencePosition": "Développeur iOS Swift",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Sopra Steria",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Data Science - Sorbonne Université",
+            "DegreeObtentionYear": "2015",
+            "Institution": "Sorbonne Université"
+          }
+        ],
+        "total_years_experience": 7.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "chloe.dubois@example.com",
+          "ApplicationCandidateName": "Chloé Dubois",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33669711422",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Swift, Objective-C",
+          "Frameworks et bibliothèques : CoreData",
+          "Outils de développement : Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 94.5
+      }
+    },
+    {
+      "cv_id": "CV_036_Mobile_Android",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 2.0,
+        "rmse": 2.0,
+        "error_percentage": 2.14,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 91.5
+      },
+      "processing_time": {
+        "extraction_time": 2.17,
+        "total_time": 3.234
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Hugo Simon",
+          "ApplicationEmail": "hugo.simon@example.com",
+          "ApplicationCandidatePhone1": "+33 6 51 55 26 34"
+        },
+        "skills": [
+          "Kotlin",
+          "Jetpack Compose",
+          "MVVM",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Dassault Systèmes",
+            "ExperiencePosition": "Développeur Android Kotlin",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Orange Business",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Licence en Informatique - INSA Lyon",
+            "DegreeObtentionYear": "2020",
+            "Institution": "INSA Lyon"
+          }
+        ],
+        "total_years_experience": 8.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "hugo.simon@example.com",
+          "ApplicationCandidateName": "Hugo Simon",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33651552634",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Kotlin",
+          "Frameworks : Jetpack Compose, MVVM",
+          "Outils : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 91.5
+      }
+    },
+    {
+      "cv_id": "CV_037_SRE_Engineer",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 86.0
+      },
+      "extraction_avg_accuracy": 98.0,
+      "score_accuracy": {
+        "mae": 4.0,
+        "rmse": 4.0,
+        "error_percentage": 4.28,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 97.5
+      },
+      "processing_time": {
+        "extraction_time": 2.525,
+        "total_time": 3.491
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Manon Laurent",
+          "ApplicationEmail": "manon.laurent@example.com",
+          "ApplicationCandidatePhone1": "+33 6 12 13 61 22"
+        },
+        "skills": [
+          "Kubernetes",
+          "Terraform",
+          "Prometheus",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Mirakl",
+            "ExperiencePosition": "Ingénieur SRE",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "BlaBlaCar",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - INSA Lyon",
+            "DegreeObtentionYear": "2014",
+            "Institution": "INSA Lyon"
+          }
+        ],
+        "total_years_experience": 9.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "manon.laurent@example.com",
+          "ApplicationCandidateName": "Manon Laurent",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33612136122",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Outils DevOps : Kubernetes, Terraform, Prometheus, Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 97.5
+      }
+    },
+    {
+      "cv_id": "CV_038_Product_Owner",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.03,
+        "in_expected_range": true,
+        "expected": 97.5,
+        "actual": 96.5
+      },
+      "processing_time": {
+        "extraction_time": 3.534,
+        "total_time": 4.659
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Arthur Michel",
+          "ApplicationEmail": "arthur.michel@example.com",
+          "ApplicationCandidatePhone1": "+33 6 62 19 83 86"
+        },
+        "skills": [
+          "Backlog",
+          "sprints",
+          "user stories",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Orange Business",
+            "ExperiencePosition": "Product Owner Agile",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "TechCorp",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master en Informatique - INSA Lyon",
+            "DegreeObtentionYear": "2016",
+            "Institution": "INSA Lyon"
+          }
+        ],
+        "total_years_experience": 10.0,
+        "expected_score": 97.5,
+        "expected_score_range": [
+          92.5,
+          102.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "arthur.michel@example.com",
+          "ApplicationCandidateName": "Arthur Michel",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33662198386",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Méthodologies Agile : Backlog, sprints, user stories",
+          "Outils de développement : Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 96.5
+      }
+    },
+    {
+      "cv_id": "CV_039_System_Admin",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 2.0,
+        "rmse": 2.0,
+        "error_percentage": 2.14,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 95.5
+      },
+      "processing_time": {
+        "extraction_time": 2.457,
+        "total_time": 3.505
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Camille Garcia",
+          "ApplicationEmail": "camille.garcia@example.com",
+          "ApplicationCandidatePhone1": "+33 6 15 54 40 81"
+        },
+        "skills": [
+          "Linux",
+          "Bash",
+          "Ansible",
+          "Réseau",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Shift Technology",
+            "ExperiencePosition": "Admin Sys Linux",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Qonto",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - ESPRIT",
+            "DegreeObtentionYear": "2017",
+            "Institution": "ESPRIT"
+          }
+        ],
+        "total_years_experience": 11.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "camille.garcia@example.com",
+          "ApplicationCandidateName": "Camille Garcia",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33615544081",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Systèmes et administration : Linux, Bash, Ansible, Réseau, Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 95.5
+      }
+    },
+    {
+      "cv_id": "CV_040_ERP_Consultant",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 16.0
+      },
+      "extraction_avg_accuracy": 88.0,
+      "score_accuracy": {
+        "mae": 1.1,
+        "rmse": 1.1,
+        "error_percentage": 1.15,
+        "in_expected_range": true,
+        "expected": 96.0,
+        "actual": 97.1
+      },
+      "processing_time": {
+        "extraction_time": 5.156,
+        "total_time": 6.313
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Théo David",
+          "ApplicationEmail": "théo.david@example.com",
+          "ApplicationCandidatePhone1": "+33 6 68 31 87 35"
+        },
+        "skills": [
+          "SAP FI/CO",
+          "ABAP",
+          "intégration",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Aircall",
+            "ExperiencePosition": "Consultant SAP",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Shift Technology",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - ENSI",
+            "DegreeObtentionYear": "2010",
+            "Institution": "ENSI"
+          }
+        ],
+        "total_years_experience": 2.0,
+        "expected_score": 96.0,
+        "expected_score_range": [
+          91.0,
+          101.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "théo.david@example.com",
+          "ApplicationCandidateName": "Théo David",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33668318735",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Outils : Git, Agile",
+          "SAP : SAP FI/CO, ABAP, intégration"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 97.1
+      }
+    },
+    {
+      "cv_id": "CV_041_Marketing_Dig_Ops",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 3.5,
+        "rmse": 3.5,
+        "error_percentage": 3.65,
+        "in_expected_range": true,
+        "expected": 96.0,
+        "actual": 92.5
+      },
+      "processing_time": {
+        "extraction_time": 2.314,
+        "total_time": 3.603
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Inès Richard",
+          "ApplicationEmail": "inès.richard@example.com",
+          "ApplicationCandidatePhone1": "+33 6 86 87 42 57"
+        },
+        "skills": [
+          "SEO",
+          "SEA",
+          "Analytics",
+          "Python basic",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Viseo",
+            "ExperiencePosition": "Growth Hacker",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Aircall",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Spécialisé - CentraleSupélec",
+            "DegreeObtentionYear": "2014",
+            "Institution": "CentraleSupélec"
+          }
+        ],
+        "total_years_experience": 3.0,
+        "expected_score": 96.0,
+        "expected_score_range": [
+          91.0,
+          101.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "inès.richard@example.com",
+          "ApplicationCandidateName": "Inès Richard",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33686874257",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Marketing Digital : SEO, SEA, Analytics",
+          "Langages de programmation : Python basic",
+          "Outils et Méthodologies : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 92.5
+      }
+    },
+    {
+      "cv_id": "CV_042_Cloud_Architect_GCP",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 4.5,
+        "rmse": 4.5,
+        "error_percentage": 4.79,
+        "in_expected_range": true,
+        "expected": 94.0,
+        "actual": 98.5
+      },
+      "processing_time": {
+        "extraction_time": 2.149,
+        "total_time": 3.105
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Louis Roux",
+          "ApplicationEmail": "louis.roux@example.com",
+          "ApplicationCandidatePhone1": "+33 6 24 30 41 81"
+        },
+        "skills": [
+          "GCP",
+          "BigQuery",
+          "GKE",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Sendinblue",
+            "ExperiencePosition": "Architecte Cloud GCP",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "BlaBlaCar",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Data Science - Université Paris-Saclay",
+            "DegreeObtentionYear": "2016",
+            "Institution": "Université Paris-Saclay"
+          }
+        ],
+        "total_years_experience": 4.0,
+        "expected_score": 94.0,
+        "expected_score_range": [
+          89.0,
+          99.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "louis.roux@example.com",
+          "ApplicationCandidateName": "Louis Roux",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33624304181",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Cloud & Infrastructure : GCP, BigQuery, GKE",
+          "Outils & Méthodologies : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 98.5
+      }
+    },
+    {
+      "cv_id": "CV_043_Data_Analyst_Junior",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 1.5,
+        "rmse": 1.5,
+        "error_percentage": 1.6,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 95.0
+      },
+      "processing_time": {
+        "extraction_time": 2.146,
+        "total_time": 3.404
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Sarah Vincent",
+          "ApplicationEmail": "sarah.vincent@example.com",
+          "ApplicationCandidatePhone1": "+33 6 58 95 59 66"
+        },
+        "skills": [
+          "SQL",
+          "Python pandas",
+          "Excel",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Alan",
+            "ExperiencePosition": "Data Analyst Junior",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Criteo",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master en Informatique - ENSI",
+            "DegreeObtentionYear": "2021",
+            "Institution": "ENSI"
+          }
+        ],
+        "total_years_experience": 5.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "sarah.vincent@example.com",
+          "ApplicationCandidateName": "Sarah Vincent",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33658955966",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Python",
+          "Bases de données : SQL",
+          "Outils : Git, Excel",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 95.0
+      }
+    },
+    {
+      "cv_id": "CV_044_Embedded_C",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 56.0
+      },
+      "extraction_avg_accuracy": 93.71,
+      "score_accuracy": {
+        "mae": 5.5,
+        "rmse": 5.5,
+        "error_percentage": 5.79,
+        "in_expected_range": false,
+        "expected": 95.0,
+        "actual": 89.5
+      },
+      "processing_time": {
+        "extraction_time": 2.215,
+        "total_time": 3.314
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Victor Garnier",
+          "ApplicationEmail": "victor.garnier@example.com",
+          "ApplicationCandidatePhone1": "+33 6 36 71 11 28"
+        },
+        "skills": [
+          "C",
+          "ARM",
+          "RTOS",
+          "microcontrôleurs",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "BlaBlaCar",
+            "ExperiencePosition": "Développeur C Embarqué",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Doctolib",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Bachelor Web & Mobile - CentraleSupélec",
+            "DegreeObtentionYear": "2022",
+            "Institution": "CentraleSupélec"
+          }
+        ],
+        "total_years_experience": 6.0,
+        "expected_score": 95.0,
+        "expected_score_range": [
+          90.0,
+          100.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "victor.garnier@example.com",
+          "ApplicationCandidateName": "Victor Garnier",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33636711128",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : C",
+          "Frameworks et outils embarqués : ARM, RTOS, microcontrôleurs",
+          "Outils de versioning : Git",
+          "Méthodologies : Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 89.5
+      }
+    },
+    {
+      "cv_id": "CV_045_Salesforce_Dev",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 66.0
+      },
+      "extraction_avg_accuracy": 95.14,
+      "score_accuracy": {
+        "mae": 4.0,
+        "rmse": 4.0,
+        "error_percentage": 4.28,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 97.5
+      },
+      "processing_time": {
+        "extraction_time": 2.255,
+        "total_time": 3.513
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Nadia Khelifi",
+          "ApplicationEmail": "nadia.khelifi@example.com",
+          "ApplicationCandidatePhone1": "+33 6 76 45 76 75"
+        },
+        "skills": [
+          "Apex",
+          "LWC",
+          "Visualforce",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "OvhCloud",
+            "ExperiencePosition": "Développeur Salesforce",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Viseo",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Master Data Science - Université Paris-Saclay",
+            "DegreeObtentionYear": "2015",
+            "Institution": "Université Paris-Saclay"
+          }
+        ],
+        "total_years_experience": 7.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "nadia.khelifi@example.com",
+          "ApplicationCandidateName": "Nadia Khelifi",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33676457675",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Outils : Git, Agile",
+          "Salesforce : Apex, LWC, Visualforce"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 97.5
+      }
+    },
+    {
+      "cv_id": "CV_046_AI_Ethicist",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 76.0
+      },
+      "extraction_avg_accuracy": 96.57,
+      "score_accuracy": {
+        "mae": 1.0,
+        "rmse": 1.0,
+        "error_percentage": 1.07,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 94.5
+      },
+      "processing_time": {
+        "extraction_time": 2.01,
+        "total_time": 3.205
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Bastien Faure",
+          "ApplicationEmail": "bastien.faure@example.com",
+          "ApplicationCandidatePhone1": "+33 6 56 68 36 38"
+        },
+        "skills": [
+          "Biais IA",
+          "régulation",
+          "fair ML",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "OvhCloud",
+            "ExperiencePosition": "Chercheur IA Ethique",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Alan",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - EPITA",
+            "DegreeObtentionYear": "2012",
+            "Institution": "EPITA"
+          }
+        ],
+        "total_years_experience": 8.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "bastien.faure@example.com",
+          "ApplicationCandidateName": "Bastien Faure",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33656683638",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Compétences techniques : Biais IA, régulation, fair ML, Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 94.5
+      }
+    },
+    {
+      "cv_id": "CV_047_Tech_Lead_Java",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 86.0
+      },
+      "extraction_avg_accuracy": 98.0,
+      "score_accuracy": {
+        "mae": 2.5,
+        "rmse": 2.5,
+        "error_percentage": 2.6,
+        "in_expected_range": true,
+        "expected": 96.0,
+        "actual": 98.5
+      },
+      "processing_time": {
+        "extraction_time": 2.637,
+        "total_time": 5.12
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Amina Benali",
+          "ApplicationEmail": "amina.benali@example.com",
+          "ApplicationCandidatePhone1": "+33 6 11 40 21 41"
+        },
+        "skills": [
+          "Java 17",
+          "Spring Boot",
+          "microservices",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Viseo",
+            "ExperiencePosition": "Tech Lead Java Spring",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Ubisoft",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Spécialisé - Mines ParisTech",
+            "DegreeObtentionYear": "2019",
+            "Institution": "Mines ParisTech"
+          }
+        ],
+        "total_years_experience": 9.0,
+        "expected_score": 96.0,
+        "expected_score_range": [
+          91.0,
+          101.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "amina.benali@example.com",
+          "ApplicationCandidateName": "Amina Benali",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33611402141",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Java 17",
+          "Frameworks : Spring Boot",
+          "Architecture : microservices",
+          "Outils : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 98.5
+      }
+    },
+    {
+      "cv_id": "CV_048_Frontend_Vue",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 5.0,
+        "rmse": 5.0,
+        "error_percentage": 5.35,
+        "in_expected_range": true,
+        "expected": 93.5,
+        "actual": 98.5
+      },
+      "processing_time": {
+        "extraction_time": 2.631,
+        "total_time": 3.864
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Romain Blanc",
+          "ApplicationEmail": "romain.blanc@example.com",
+          "ApplicationCandidatePhone1": "+33 6 64 47 78 53"
+        },
+        "skills": [
+          "Vue 3",
+          "Nuxt",
+          "TypeScript",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Aircall",
+            "ExperiencePosition": "Développeur Vue.js",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Shift Technology",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Mastère Spécialisé - Université Paris-Saclay",
+            "DegreeObtentionYear": "2018",
+            "Institution": "Université Paris-Saclay"
+          }
+        ],
+        "total_years_experience": 10.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "romain.blanc@example.com",
+          "ApplicationCandidateName": "Romain Blanc",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33664477853",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : TypeScript",
+          "Frameworks : Vue 3, Nuxt",
+          "Outils : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 98.5
+      }
+    },
+    {
+      "cv_id": "CV_049_Backend_Go",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 100.0
+      },
+      "extraction_avg_accuracy": 100.0,
+      "score_accuracy": {
+        "mae": 6.0,
+        "rmse": 6.0,
+        "error_percentage": 6.42,
+        "in_expected_range": false,
+        "expected": 93.5,
+        "actual": 99.5
+      },
+      "processing_time": {
+        "extraction_time": 2.38,
+        "total_time": 3.585
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Céline Gauthier",
+          "ApplicationEmail": "céline.gauthier@example.com",
+          "ApplicationCandidatePhone1": "+33 6 47 77 26 26"
+        },
+        "skills": [
+          "Golang",
+          "gRPC",
+          "microservices",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Viseo",
+            "ExperiencePosition": "Développeur Go",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "PayFit",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Diplôme d'Ingénieur - ENSI",
+            "DegreeObtentionYear": "2018",
+            "Institution": "ENSI"
+          }
+        ],
+        "total_years_experience": 11.0,
+        "expected_score": 93.5,
+        "expected_score_range": [
+          88.5,
+          98.5
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "celine.gauthier@example.com",
+          "ApplicationCandidateName": "Céline Gauthier",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33647772626",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Langages de programmation : Go",
+          "Frameworks et outils : gRPC, Git, Agile",
+          "Architecture logicielle : microservices"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 99.5
+      }
+    },
+    {
+      "cv_id": "CV_050_Manager_IT",
+      "extraction_accuracy": {
+        "candidate.ApplicationCandidateName": 100.0,
+        "candidate.ApplicationEmail": 100.0,
+        "candidate.ApplicationCandidatePhone1": 100.0,
+        "skills": 100.0,
+        "experiences": 100.0,
+        "degrees": 100.0,
+        "total_years_experience": 16.0
+      },
+      "extraction_avg_accuracy": 88.0,
+      "score_accuracy": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "error_percentage": 0.0,
+        "in_expected_range": true,
+        "expected": 86.0,
+        "actual": 86.0
+      },
+      "processing_time": {
+        "extraction_time": 6.796,
+        "total_time": 8.212
+      },
+      "expected_data": {
+        "candidate": {
+          "ApplicationCandidateName": "Hassan Mansour",
+          "ApplicationEmail": "hassan.mansour@example.com",
+          "ApplicationCandidatePhone1": "+33 6 40 44 85 64"
+        },
+        "skills": [
+          "Stratégie IT",
+          "budget",
+          "management équipes",
+          "Git",
+          "Agile"
+        ],
+        "experiences": [
+          {
+            "ExperienceCompany": "Mirakl",
+            "ExperiencePosition": "Directeur IT",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2018",
+            "ExperienceEndDate": "present"
+          },
+          {
+            "ExperienceCompany": "Capgemini",
+            "ExperiencePosition": "Junior ",
+            "experience_type": "professional",
+            "ExperienceStartDate": "2016",
+            "ExperienceEndDate": "2018"
+          }
+        ],
+        "degrees": [
+          {
+            "DegreeLabel": "Bachelor Web & Mobile - ESPRIT",
+            "DegreeObtentionYear": "2010",
+            "Institution": "ESPRIT"
+          }
+        ],
+        "total_years_experience": 2.0,
+        "expected_score": 86.0,
+        "expected_score_range": [
+          81.0,
+          91.0
+        ]
+      },
+      "actual_data": {
+        "candidate": {
+          "ApplicationEmail": "hassan.mansour@example.com",
+          "ApplicationCandidateName": "Hassan Mansour",
+          "ApplicationCandidateBirthDate": null,
+          "ApplicationCandidatePhone1": "33640448564",
+          "ApplicationCandidatePhone2": null,
+          "ApplicationCandidateAddress": null
+        },
+        "skills": [
+          "Compétences managériales : Stratégie IT, budget, management équipes",
+          "Outils de développement : Git, Agile"
+        ],
+        "experiences_count": 2,
+        "degrees_count": 1,
+        "total_years_experience": 10.4,
+        "score": 86.0
+      }
+    }
+  ]
+}

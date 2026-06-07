@@ -330,7 +330,12 @@ def _sync_insert_new_candidate_and_application(ai_data, score, explanation, sess
             if cv_path:
                 import os, uuid
                 _, ext = os.path.splitext(cv_path)
-                attachment_type = ext[1:].lower() if ext else 'unknown'
+                ext_str = ext.lower() if ext else ''
+                if ext_str in ['.doc', '.docx']:
+                    attachment_type = 'Word'
+                else:
+                    attachment_type = 'PDF'
+                    
                 cursor.execute(
                     "INSERT INTO Attachment (AttachmentTitle, AttachmentType, AttachmentReferenceGuid, AttachmentApplicationID) VALUES (?, ?, ?, ?)",
                     (_trunc(os.path.basename(cv_path), 100), _trunc(attachment_type, 50), str(uuid.uuid4()), application_id)

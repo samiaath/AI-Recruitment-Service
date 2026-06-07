@@ -70,7 +70,10 @@ async def process_app_pipeline(idx, app, total_apps):
     print(f"-> Telephone   : {data_dict['candidate']['ApplicationCandidatePhone1']}")
     print(f"-> Reference   : {data_dict['session_position_reference']}")
     print(f"-> Description : {data_dict['session_position_description']}")
-    print(f"-> Competences : {[s['SkillDescription'] for s in data_dict['skills']]}")
+    if data_dict.get('skills') and isinstance(data_dict['skills'][0], dict) and 'category_name' in data_dict['skills'][0]:
+        print(f"-> Competences : {[cat['category_name'] + ' : ' + ', '.join(cat['skills']) for cat in data_dict['skills']]}")
+    else:
+        print(f"-> Competences : {[s.get('SkillDescription', str(s)) for s in data_dict.get('skills', [])]}")
     print("-" * 75 + "\n")
     
     # 3. Calcul de Notation Dynamique par LLM (En fonction de SessionPosition.Description !)
