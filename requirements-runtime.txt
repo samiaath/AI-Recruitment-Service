@@ -1,0 +1,13 @@
+# Dépendances STRICTEMENT nécessaires au service en exécution.
+# (requirements.txt complet = environnement de dev/recherche : spacy, easyocr,
+#  sentence-transformers, etc. — non utilisés par le pipeline en production.)
+# Cette liste réduite permet une image Docker légère (~300 Mo) et un build rapide.
+fastapi==0.115.6
+uvicorn[standard]==0.30.6
+python-dotenv==1.0.1
+pydantic==2.9.2
+pyodbc==5.2.0
+pdfplumber==0.11.4
+python-docx==1.1.2
+Pillow==12.2.0
+mistralai==0.1.8
