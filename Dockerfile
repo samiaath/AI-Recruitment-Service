@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 # ──────────────────────────────────────────────────────────────────────────
 # Image du microservice IA de recrutement (FastAPI + Mistral + pyodbc).
 # Base légère Python 3.11 ; on installe juste ce qu'il faut pour faire tourner
