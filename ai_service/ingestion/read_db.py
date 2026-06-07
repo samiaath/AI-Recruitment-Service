@@ -80,6 +80,20 @@ def _sync_fetch_pending_applications() -> list:
 async def fetch_pending_applications() -> list:
     return await asyncio.to_thread(_sync_fetch_pending_applications)
 
+def _query_session_by_ref(cursor, ref: str) -> dict | None:
+    """Cherche une SessionPosition par référence exacte. Renvoie le dict ou None."""
+    if not ref or ref.strip() == "":
+        return None
+    cursor.execute(
+        "SELECT SessionPositionID, PositionReference, Description FROM SessionPosition WHERE PositionReference = ?",
+        (ref,),
+    )
+    row = cursor.fetchone()
+    if not row:
+        return None
+    return {"id": row[0], "reference": row[1], "description": row[2] if row[2] else ""}
+
+
 def _sync_fetch_session_by_reference(ref: str) -> dict:
     """
     Tente de trouver la SessionPosition via sa reference (PositionReference).
@@ -103,14 +117,11 @@ def _sync_fetch_session_by_reference(ref: str) -> dict:
             cursor = conn.cursor()
 
             # 1. Chercher par reference exacte (si fournie)
-            if ref and ref.strip() != "":
-                cursor.execute("SELECT SessionPositionID, PositionReference, Description FROM SessionPosition WHERE PositionReference = ?", (ref,))
-                row = cursor.fetchone()
-                if row:
-                    session_info = {"id": row[0], "reference": row[1], "description": row[2] if row[2] else ""}
-                    _CACHE["sessions"][ref] = session_info
-                    _CACHE_TIMESTAMPS.setdefault("sessions", time.time())
-                    return session_info
+            session_info = _query_session_by_ref(cursor, ref)
+            if session_info:
+                _CACHE["sessions"][ref] = session_info
+                _CACHE_TIMESTAMPS.setdefault("sessions", time.time())
+                return session_info
 
             # 2. MATCH FALLBACK : Trouver la session par defaut (SessionDefault = 1)
             if _CACHE["default_session"] and _cache_valid("default_session"):

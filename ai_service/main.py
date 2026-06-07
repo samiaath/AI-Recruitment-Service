@@ -214,12 +214,14 @@ async def run_unit_tests():
     import os
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
-        # Run pytest if installed, else fallback to unittest
-        result = subprocess.run(
-            ["python", "-m", "pytest", "tests/"], 
-            cwd=root_dir, 
-            capture_output=True, 
-            text=True
+        # subprocess.run est bloquant : on le déporte dans un thread pour ne pas
+        # geler la boucle asyncio pendant l'exécution des tests.
+        result = await asyncio.to_thread(
+            subprocess.run,
+            ["python", "-m", "pytest", "tests/"],
+            cwd=root_dir,
+            capture_output=True,
+            text=True,
         )
         if result.returncode == 0:
             return {"status": "success", "output": result.stdout}

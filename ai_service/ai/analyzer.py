@@ -82,7 +82,7 @@ _PHONE_RE = re.compile(
         [\s.\-]?
         (?:\d[\s.\-]?){8,10}  # 8 à 10 chiffres
     |
-        (?:0[0-9])             # ── format national (mobile commençant par 0) ──
+        0\d                    # ── format national (mobile commençant par 0) ──
         (?:[\s.\-]?\d){8}     # 8 chiffres restants
     )
     """,
