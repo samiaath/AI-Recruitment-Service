@@ -1,4 +1,5 @@
 import os
+import json
 import asyncio
 from docx import settings
 from fastapi import FastAPI
@@ -23,6 +24,19 @@ def get_semaphore():
     if _SEMAPHORE is None:
         _SEMAPHORE = asyncio.Semaphore(settings.pipeline_concurrency)
     return _SEMAPHORE
+
+
+def _mark_metadata_done(meta_path: str) -> None:
+    """
+    Passe le statut d'un metadata.json d'email à 'done' (lecture + écriture).
+    Fonction synchrone volontairement isolée : appelée via asyncio.to_thread
+    pour ne pas bloquer la boucle asyncio avec des I/O fichier.
+    """
+    with open(meta_path, "r", encoding="utf-8") as f:
+        meta = json.load(f)
+    meta["status"] = "done"
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=4, ensure_ascii=False)
 
 async def process_single_application(app_data):
     lock_key = (
@@ -106,13 +120,10 @@ async def process_single_application(app_data):
                 
                 folder_path = app_data.get("folder_path")
                 if folder_path and os.path.exists(os.path.join(folder_path, "metadata.json")):
-                    import json
                     meta_path = os.path.join(folder_path, "metadata.json")
-                    with open(meta_path, "r", encoding="utf-8") as f:
-                        meta = json.load(f)
-                    meta["status"] = "done"  
-                    with open(meta_path, "w", encoding="utf-8") as f:
-                        json.dump(meta, f, indent=4, ensure_ascii=False)
+                    # Lecture/écriture fichier = opération bloquante : on la déporte dans
+                    # un thread pour ne pas geler la boucle asyncio (comme les accès DB).
+                    await asyncio.to_thread(_mark_metadata_done, meta_path)
             
             # Consolider le JSON final pour Swagger UI (complet)
             full_result = ai_extracted.dict()
@@ -218,4 +229,10 @@ async def run_unit_tests():
         return {"status": "error", "message": str(e)}
 
 if __name__ == "__main__":
-    uvicorn.run("ai_service.main:app", host="0.0.0.0", port=8000, reload=True)
+    # Hôte/port configurables via variables d'environnement.
+    # Par défaut on écoute en local (127.0.0.1) — plus sûr. En conteneur, le
+    # Dockerfile lance uvicorn avec --host 0.0.0.0 explicitement (réseau Docker),
+    # ou bien on positionne API_HOST=0.0.0.0 pour un déploiement serveur.
+    host = os.getenv("API_HOST", "127.0.0.1")
+    port = int(os.getenv("API_PORT", "8000"))
+    uvicorn.run("ai_service.main:app", host=host, port=port, reload=True)
