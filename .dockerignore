@@ -1,0 +1,24 @@
+# Tout ce qui n'a pas à entrer dans l'image (allège le contexte de build).
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.git/
+.github/
+.vscode/
+.idea/
+
+# Données et artefacts hors-runtime
+evaluation/
+tests/
+emails/
+CVs/
+Demo/
+*.sqlite
+ai_service/database/db.sqlite
+
+# Docs et secrets
+*.md
+.env
+.env.*
