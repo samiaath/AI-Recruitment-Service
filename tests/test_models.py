@@ -1,6 +1,6 @@
 import pytest
 from pydantic import ValidationError
-from ai_service.models import Candidate, Skill, Experience, StudyLevel, Institution, ApplicationDegree, ExtractedApplicationData, ScoreResult
+from ai_service.models import Candidate, Skill, SkillGroup, Experience, StudyLevel, Institution, ApplicationDegree, ExtractedApplicationData, ScoreResult
 
 def test_skill_model():
     skill = Skill(SkillDescription="Python")
@@ -26,18 +26,20 @@ def test_extracted_application_data_model():
         ApplicationEmail="test_extracted@example.com",
         ApplicationCandidateName="Alice"
     )
-    skill = Skill(SkillDescription="Machine Learning")
+    # Les compétences sont regroupées par catégorie (modèle SkillGroup).
+    skill_group = SkillGroup(category_name="Data Science", skills=["Machine Learning"])
     degree = ApplicationDegree(DegreeLabel="Master Data Science")
-    
+
     extracted_data = ExtractedApplicationData(
         candidate=candidate,
-        skills=[skill],
+        skills=[skill_group],
         degrees=[degree]
     )
-    
+
     assert extracted_data.candidate.ApplicationCandidateName == "Alice"
     assert len(extracted_data.skills) == 1
-    assert extracted_data.skills[0].SkillDescription == "Machine Learning"
+    assert extracted_data.skills[0].category_name == "Data Science"
+    assert "Machine Learning" in extracted_data.skills[0].skills
     assert len(extracted_data.degrees) == 1
     assert extracted_data.degrees[0].DegreeLabel == "Master Data Science"
     assert extracted_data.experiences == []  # default_factory check

@@ -1,16 +1,38 @@
 import asyncio
+import os
+import time
 from typing import Dict, Any
 from ..database.db_connection import get_db_connection
+from ..config import settings
 
-# --- IN-MEMORY CACHE ---
-# Cache to avoid redundant DB calls spanning multiple CVs
+# --- CACHE MÉMOIRE ---
+# Évite de requêter la base à chaque CV pour des données qui changent peu
+# (sessions, référentiels). Chaque entrée est invalidée automatiquement après
+# settings.cache_ttl_seconds : un service qui tourne longtemps récupère ainsi
+# les mises à jour de la base sans redémarrage.
 _CACHE: Dict[str, Any] = {
     "sessions": {},             # ref -> session_info
-    "session_references": None, # list of references
-    "institutions": None,       # list of dicts: {"InstitutionID": id, "Name": name}
-    "study_levels": None,       # list of dicts: {"StudyLevelID": id, "Name": name}
-    "default_session": None     # session_info
+    "session_references": None, # liste des références d'offres
+    "institutions": None,       # liste de dicts: {"InstitutionID": id, "Name": name}
+    "study_levels": None,       # liste de dicts: {"StudyLevelID": id, "Name": name}
+    "default_session": None     # session par défaut
 }
+# Horodatage du dernier chargement de chaque clé du cache (pour le TTL).
+_CACHE_TIMESTAMPS: Dict[str, float] = {}
+
+
+def _cache_valid(key: str) -> bool:
+    """True si la clé est en cache ET n'a pas dépassé sa durée de vie (TTL)."""
+    ts = _CACHE_TIMESTAMPS.get(key)
+    if ts is None:
+        return False
+    return (time.time() - ts) < settings.cache_ttl_seconds
+
+
+def _cache_store(key: str, value: Any) -> None:
+    """Enregistre une valeur en cache et note l'heure du chargement."""
+    _CACHE[key] = value
+    _CACHE_TIMESTAMPS[key] = time.time()
 # -----------------------
 
 def _sync_fetch_pending_applications() -> list:
@@ -35,7 +57,9 @@ def _sync_fetch_pending_applications() -> list:
             """
             cursor.execute(query)
             for row in cursor.fetchall():
-                cv_path = f"CVs/{row[3]}" if row[3] else None
+                # On utilise un chemin absolu basé sur la racine du projet, pour que le dossier CVs/ soit toujours trouvé
+                project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+                cv_path = os.path.join(project_root, "CVs", row[3]) if row[3] else None
 
                 applications.append({
                     "ApplicationID": row[0],
@@ -56,6 +80,20 @@ def _sync_fetch_pending_applications() -> list:
 async def fetch_pending_applications() -> list:
     return await asyncio.to_thread(_sync_fetch_pending_applications)
 
+def _query_session_by_ref(cursor, ref: str) -> dict | None:
+    """Cherche une SessionPosition par référence exacte. Renvoie le dict ou None."""
+    if not ref or ref.strip() == "":
+        return None
+    cursor.execute(
+        "SELECT SessionPositionID, PositionReference, Description FROM SessionPosition WHERE PositionReference = ?",
+        (ref,),
+    )
+    row = cursor.fetchone()
+    if not row:
+        return None
+    return {"id": row[0], "reference": row[1], "description": row[2] if row[2] else ""}
+
+
 def _sync_fetch_session_by_reference(ref: str) -> dict:
     """
     Tente de trouver la SessionPosition via sa reference (PositionReference).
@@ -66,25 +104,27 @@ def _sync_fetch_session_by_reference(ref: str) -> dict:
     fallback_ref = "DEFAULT"
     fallback_id = None
 
-    # CACHE CHECK
+    # Vide le cache des sessions s'il a dépassé sa durée de vie (TTL).
+    if not _cache_valid("sessions"):
+        _CACHE["sessions"] = {}
+
+    # Cache : référence déjà résolue récemment ?
     if ref and ref in _CACHE["sessions"]:
         return _CACHE["sessions"][ref]
 
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
-            
+
             # 1. Chercher par reference exacte (si fournie)
-            if ref and ref.strip() != "":
-                cursor.execute("SELECT SessionPositionID, PositionReference, Description FROM SessionPosition WHERE PositionReference = ?", (ref,))
-                row = cursor.fetchone()
-                if row:
-                    session_info = {"id": row[0], "reference": row[1], "description": row[2] if row[2] else ""}
-                    _CACHE["sessions"][ref] = session_info
-                    return session_info
+            session_info = _query_session_by_ref(cursor, ref)
+            if session_info:
+                _CACHE["sessions"][ref] = session_info
+                _CACHE_TIMESTAMPS.setdefault("sessions", time.time())
+                return session_info
 
             # 2. MATCH FALLBACK : Trouver la session par defaut (SessionDefault = 1)
-            if _CACHE["default_session"]:
+            if _CACHE["default_session"] and _cache_valid("default_session"):
                 return _CACHE["default_session"]
 
             query_default = """
@@ -97,7 +137,7 @@ def _sync_fetch_session_by_reference(ref: str) -> dict:
             row = cursor.fetchone()
             if row:
                 session_info = {"id": row[0], "reference": row[1], "description": row[2] if row[2] else "Description de poste non trouvee, session par defaut."}
-                _CACHE["default_session"] = session_info
+                _cache_store("default_session", session_info)
                 return session_info
 
     except Exception as e:
@@ -109,9 +149,9 @@ async def fetch_session_by_reference(ref: str) -> dict:
     return await asyncio.to_thread(_sync_fetch_session_by_reference, ref)
 
 def _sync_fetch_all_session_references() -> list:
-    if _CACHE["session_references"] is not None:
+    if _CACHE["session_references"] is not None and _cache_valid("session_references"):
         return _CACHE["session_references"]
-    
+
     references = []
     try:
         with get_db_connection() as conn:
@@ -119,17 +159,17 @@ def _sync_fetch_all_session_references() -> list:
             cursor.execute("SELECT PositionReference FROM SessionPosition WHERE PositionReference IS NOT NULL")
             for row in cursor.fetchall():
                 references.append(row[0])
-            _CACHE["session_references"] = references
+            _cache_store("session_references", references)
     except Exception as e:
         print(f"Error fetching references: {e}")
-            
+
     return references
 
 async def fetch_all_session_references() -> list:
     return await asyncio.to_thread(_sync_fetch_all_session_references)
 
 def _sync_fetch_all_institutions() -> list:
-    if _CACHE["institutions"] is not None:
+    if _CACHE["institutions"] is not None and _cache_valid("institutions"):
         return _CACHE["institutions"]
 
     institutions = []
@@ -139,11 +179,12 @@ def _sync_fetch_all_institutions() -> list:
             cursor.execute("SELECT InstitutionID, InstitutionLabel FROM Institution")
             for row in cursor.fetchall():
                 institutions.append({"InstitutionID": row[0], "Name": row[1]})
-            _CACHE["institutions"] = institutions
+            _cache_store("institutions", institutions)
     except Exception as e:
+        # Base injoignable : on renvoie des données factices pour ne pas bloquer le pipeline.
         print(f"Error fetching Institutions: {e}. Falling back to mock data.")
         institutions = [{"InstitutionID": 1, "Name": "Universite de Paris"}, {"InstitutionID": 2, "Name": "EPFL"}, {"InstitutionID": 3, "Name": "MIT"}]
-        _CACHE["institutions"] = institutions
+        _cache_store("institutions", institutions)
 
     return institutions
 
@@ -151,7 +192,7 @@ async def fetch_all_institutions() -> list:
     return await asyncio.to_thread(_sync_fetch_all_institutions)
 
 def _sync_fetch_all_study_levels() -> list:
-    if _CACHE["study_levels"] is not None:
+    if _CACHE["study_levels"] is not None and _cache_valid("study_levels"):
         return _CACHE["study_levels"]
 
     study_levels = []
@@ -161,11 +202,12 @@ def _sync_fetch_all_study_levels() -> list:
             cursor.execute("SELECT StudyLevelID, StudyLevelLabel FROM StudyLevel")
             for row in cursor.fetchall():
                 study_levels.append({"StudyLevelID": row[0], "Name": row[1]})
-            _CACHE["study_levels"] = study_levels
+            _cache_store("study_levels", study_levels)
     except Exception as e:
+        # Base injoignable : données factices de repli.
         print(f"Error fetching StudyLevels: {e}. Falling back to mock data.")
         study_levels = [{"StudyLevelID": 1, "Name": "Bac+2"}, {"StudyLevelID": 2, "Name": "Bac+3 (Licence)"}, {"StudyLevelID": 3, "Name": "Bac+5 (Master/Ingenieur)"}]
-        _CACHE["study_levels"] = study_levels
+        _cache_store("study_levels", study_levels)
 
     return study_levels
 

@@ -1,4 +1,5 @@
 import os
+import json
 import asyncio
 from docx import settings
 from fastapi import FastAPI
@@ -23,6 +24,19 @@ def get_semaphore():
     if _SEMAPHORE is None:
         _SEMAPHORE = asyncio.Semaphore(settings.pipeline_concurrency)
     return _SEMAPHORE
+
+
+def _mark_metadata_done(meta_path: str) -> None:
+    """
+    Passe le statut d'un metadata.json d'email à 'done' (lecture + écriture).
+    Fonction synchrone volontairement isolée : appelée via asyncio.to_thread
+    pour ne pas bloquer la boucle asyncio avec des I/O fichier.
+    """
+    with open(meta_path, "r", encoding="utf-8") as f:
+        meta = json.load(f)
+    meta["status"] = "done"
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=4, ensure_ascii=False)
 
 async def process_single_application(app_data):
     lock_key = (
@@ -106,13 +120,10 @@ async def process_single_application(app_data):
                 
                 folder_path = app_data.get("folder_path")
                 if folder_path and os.path.exists(os.path.join(folder_path, "metadata.json")):
-                    import json
                     meta_path = os.path.join(folder_path, "metadata.json")
-                    with open(meta_path, "r", encoding="utf-8") as f:
-                        meta = json.load(f)
-                    meta["status"] = "done"  
-                    with open(meta_path, "w", encoding="utf-8") as f:
-                        json.dump(meta, f, indent=4, ensure_ascii=False)
+                    # Lecture/écriture fichier = opération bloquante : on la déporte dans
+                    # un thread pour ne pas geler la boucle asyncio (comme les accès DB).
+                    await asyncio.to_thread(_mark_metadata_done, meta_path)
             
             # Consolider le JSON final pour Swagger UI (complet)
             full_result = ai_extracted.dict()
@@ -160,14 +171,70 @@ async def lifespan(app: FastAPI):
     print("AI Service - Shutting down!")
     cron_task.cancel()
 
-app = FastAPI(title="AI Recruitment Service", lifespan=lifespan)
+app = FastAPI(
+    title="AI Recruitment Service", 
+    description="API for the AI Recruitment internal services, including pipeline management, test executions, and monitoring.",
+    version="1.0.0",
+    lifespan=lifespan
+)
 
-@app.post("/pipeline/run")
+@app.post("/pipeline/run", tags=["Pipeline"], summary="Run global pipeline manually")
 async def trigger_pipeline():
+    """
+    Trigger the main recruitment pipeline manually to process pending database applications and emails.
+    """
     print("[MANUEL] Requête reçue via Swagger UI. Scan de l'Inbox Email...")
     await fetch_new_emails()
     print("[MANUEL] Démarrage du traitement Pipeline...")
     return await run_pipeline_logic()
 
+@app.post("/tests/test-pipeline", tags=["Tests"], summary="Run the CLI test pipeline script")
+async def run_test_pipeline():
+    """
+    Executes the overall test pipeline script (`test_pipeline.py`) which processes all items and outputs to console.
+    Returns status of the execution.
+    """
+    import sys
+    import os
+    # Add root to sys.path if not present to import test_pipeline
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if root_dir not in sys.path:
+        sys.path.append(root_dir)
+        
+    import test_pipeline
+    await test_pipeline.run_global_pipeline()
+    return {"status": "success", "message": "Test pipeline executed successfully. Check console for logs."}
+
+@app.post("/tests/unit-tests", tags=["Tests"], summary="Run all unit tests")
+async def run_unit_tests():
+    """
+    Run all automated unit tests located in the `tests/` folder using Python's unittest module or pytest.
+    """
+    import subprocess
+    import os
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        # subprocess.run est bloquant : on le déporte dans un thread pour ne pas
+        # geler la boucle asyncio pendant l'exécution des tests.
+        result = await asyncio.to_thread(
+            subprocess.run,
+            ["python", "-m", "pytest", "tests/"],
+            cwd=root_dir,
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            return {"status": "success", "output": result.stdout}
+        else:
+            return {"status": "failed", "output": result.stdout, "errors": result.stderr}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 if __name__ == "__main__":
-    uvicorn.run("ai_service.main:app", host="0.0.0.0", port=8000, reload=True)
+    # Hôte/port configurables via variables d'environnement.
+    # Par défaut on écoute en local (127.0.0.1) — plus sûr. En conteneur, le
+    # Dockerfile lance uvicorn avec --host 0.0.0.0 explicitement (réseau Docker),
+    # ou bien on positionne API_HOST=0.0.0.0 pour un déploiement serveur.
+    host = os.getenv("API_HOST", "127.0.0.1")
+    port = int(os.getenv("API_PORT", "8000"))
+    uvicorn.run("ai_service.main:app", host=host, port=port, reload=True)

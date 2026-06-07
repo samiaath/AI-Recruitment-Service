@@ -40,6 +40,13 @@ class Settings(BaseModel):
     
     scoring_weights: ScoringWeights = ScoringWeights()
     pipeline_concurrency: int = int(os.getenv("PIPELINE_CONCURRENCY", "5"))
-    cron_interval_hours: float = float(os.getenv("CRON_INTERVAL_HOURS", "2.0"))
+    # Intervalle du cron de fond : le pipeline se relance toutes les 4 heures.
+    cron_interval_hours: float = float(os.getenv("CRON_INTERVAL_HOURS", "4.0"))
+
+    # Durée de vie (secondes) du cache des référentiels (institutions, niveaux,
+    # sessions). Passé ce délai, les données sont rechargées depuis la base —
+    # utile pour un service qui tourne en continu et dont la base évolue.
+    # Défaut : 1 heure.
+    cache_ttl_seconds: int = int(os.getenv("CACHE_TTL_SECONDS", "3600"))
 
 settings = Settings()

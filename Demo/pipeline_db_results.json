@@ -1,0 +1,149 @@
+[
+    {
+        "source_folder": "database_pending",
+        "cv_filename": "CV_SamiaThameur.pdf",
+        "ai_extracted_data": {
+            "candidate": {
+                "ApplicationEmail": "samia.thameur@enicar.ucar.tn",
+                "ApplicationCandidateName": "Samia THAMEUR",
+                "ApplicationCandidateBirthDate": "2002-05-14",
+                "ApplicationCandidatePhone1": "21693901170",
+                "ApplicationCandidatePhone2": null,
+                "ApplicationCandidateAddress": "Ariana, Tunisie"
+            },
+            "skills": [
+                {
+                    "category_name": "Langages de programmation",
+                    "skills": [
+                        "Python",
+                        "C#",
+                        "C++",
+                        "Java",
+                        "JavaScript",
+                        "TypeScript"
+                    ]
+                },
+                {
+                    "category_name": "Front-end",
+                    "skills": [
+                        "HTML",
+                        "CSS",
+                        "TailwindCSS",
+                        "Angular",
+                        "React",
+                        "Next.js",
+                        "JavaFX",
+                        "Figma"
+                    ]
+                },
+                {
+                    "category_name": "Back-end",
+                    "skills": [
+                        "Spring",
+                        "Spring Boot",
+                        "Node.js (Express.js)"
+                    ]
+                },
+                {
+                    "category_name": "Bases de données",
+                    "skills": [
+                        "Oracle",
+                        "MySQL",
+                        "PostgreSQL",
+                        "MongoDB"
+                    ]
+                },
+                {
+                    "category_name": "Contrôle de version",
+                    "skills": [
+                        "Git",
+                        "GitHub",
+                        "GitLab"
+                    ]
+                },
+                {
+                    "category_name": "Cloud / DevOps",
+                    "skills": [
+                        "AWS Cloud Foundations",
+                        "Docker",
+                        "Kubernetes",
+                        "Jenkins"
+                    ]
+                },
+                {
+                    "category_name": "Systèmes d'exploitation",
+                    "skills": [
+                        "Windows",
+                        "Linux"
+                    ]
+                },
+                {
+                    "category_name": "Langues",
+                    "skills": [
+                        "Arabe (Langue natale)",
+                        "Anglais (B2)",
+                        "Français (B2)",
+                        "Allemand (A2)"
+                    ]
+                }
+            ],
+            "experiences": [
+                {
+                    "experience_type": "internship",
+                    "ExperienceStartDate": "2025-07",
+                    "ExperienceEndDate": "2025-08",
+                    "ExperienceCompany": "International Information Developments (IID)",
+                    "ExperiencePosition": "Stagiaire Analyste Développeur",
+                    "duration_months": 2.0
+                }
+            ],
+            "degrees": [
+                {
+                    "DegreeObtentionYear": null,
+                    "DegreeInstitution": null,
+                    "DegreeStudyLevel": null,
+                    "institution_id": 9,
+                    "institution_name": "Institut Préparatoire aux Études d'Ingénieur de Monastir",
+                    "study_level_id": 7,
+                    "study_level_name": "Cycle préparatoire",
+                    "DegreeLabel": "Cycle préparatoire aux études d'ingénieur"
+                },
+                {
+                    "DegreeObtentionYear": null,
+                    "DegreeInstitution": null,
+                    "DegreeStudyLevel": null,
+                    "institution_id": 2,
+                    "institution_name": "Ecole Nationale d'Ingénieurs de Carthage",
+                    "study_level_id": 2,
+                    "study_level_name": "ingénieur",
+                    "DegreeLabel": "Diplôme d'ingénieur en Génie Informatique"
+                },
+                {
+                    "DegreeObtentionYear": "2021",
+                    "DegreeInstitution": null,
+                    "DegreeStudyLevel": null,
+                    "institution_id": 8,
+                    "institution_name": null,
+                    "study_level_id": 6,
+                    "study_level_name": "Baccalauréat",
+                    "DegreeLabel": "Baccalauréat en Mathématiques"
+                }
+            ],
+            "total_years_experience": 0.2,
+            "professional_years_only": 0.0,
+            "session_position_reference": "RF001",
+            "session_position_description": "Développeur avec 2 ans d'expérience en .NET C#"
+        },
+        "score": 16.0,
+        "explanation": "Points forts : Compétences en C# (présent) Connaissances en .NET (implicite) | Points faibles : Aucune expérience professionnelle en .NET XP pro nulle (0 an) Formation non précisée Stage hors domaine .NET | Conclusion : Profil hors cible pour un poste .NET C# junior : compétences techniques dispersées et XP pro inexistante.",
+        "session_position_id": 1,
+        "target_reference": "RF001",
+        "metadata_origin": {
+            "source": "db",
+            "application_id": 1,
+            "email": "samia.thameur@enicar.ucar.tn",
+            "name": "Samia THAMEUR",
+            "base_path": "C:\\Users\\Lenovo\\Desktop\\Python\\CVs\\CV_SamiaThameur.pdf"
+        }
+    }
+]

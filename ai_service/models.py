@@ -16,6 +16,16 @@ class ScoreBreakdown(BaseModel):
     education_level: float = 0.0
     seniority_match: float = 0.0
 
+class SkillGroup(BaseModel):
+    category_name: str = Field(description="Ex: Langages de programmation, Frameworks, Base de données, Outils, Soft skills")
+    skills: List[str] = Field(description="Liste des compétences dans cette catégorie")
+
+    @property
+    def SkillDescription(self) -> str:
+        s_list = ", ".join(self.skills)
+        desc = f"{self.category_name} : {s_list}"
+        return desc[:300]  # Limite pour la DB
+
 class Skill(BaseModel):
     SkillDescription: str
 
@@ -59,7 +69,7 @@ class Candidate(BaseModel):
 
 class ExtractedApplicationData(BaseModel):
     candidate: Candidate
-    skills: List[Skill] = Field(default_factory=list)
+    skills: List[SkillGroup] = Field(default_factory=list)
     experiences: List[Experience] = Field(default_factory=list)
     degrees: List[ApplicationDegree] = Field(default_factory=list)
     total_years_experience: Optional[float] = 0.0
